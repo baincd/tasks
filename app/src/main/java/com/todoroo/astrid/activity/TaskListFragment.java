@@ -189,7 +189,7 @@ public class TaskListFragment extends InjectingFragment implements
         }
 
         if (filter == null) {
-            filter = BuiltInFilterExposer.getMyTasksFilter(getResources());
+            filter = BuiltInFilterExposer.getMyTasksFilter(getResources(), preferences);
         }
 
         setTaskAdapter();
@@ -544,6 +544,6 @@ public class TaskListFragment extends InjectingFragment implements
     }
 
     protected boolean hasDraggableOption() {
-        return BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter);
+        return BuiltInFilterExposer.isInbox(context, filter, preferences) || BuiltInFilterExposer.isTodayFilter(context, filter);
     }
 }
