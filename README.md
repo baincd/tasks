@@ -1,3 +1,9 @@
+This is the [tasks v5.2.1](https://github.com/tasks/tasks/releases/tag/5.2.1) project with the following enhancements:
+
+* Add ability to reset all notifications
+* Add setting to hide tags that start with a period
+
+---
 [![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks)
 
 [![Make a contribution](https://pledgie.com/campaigns/24281.png?skin_name=chrome)](https://pledgie.com/campaigns/24281)
