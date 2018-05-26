@@ -109,7 +109,7 @@ public class DefaultFilterProvider {
 
   public Filter getFilterFromPreference(String preferenceValue) {
     return getFilterFromPreference(
-        preferenceValue, BuiltInFilterExposer.getMyTasksFilter(context.getResources()));
+        preferenceValue, BuiltInFilterExposer.getMyTasksFilter(context.getResources(), preferences));
   }
 
   private Filter getFilterFromPreference(String preferenceValue, Filter def) {
@@ -195,7 +195,7 @@ public class DefaultFilterProvider {
       case FILTER_RECENTLY_MODIFIED:
         return getRecentlyModifiedFilter(resources);
     }
-    return getMyTasksFilter(resources);
+    return getMyTasksFilter(resources, preferences);
   }
 
   private int getBuiltInFilterId(Filter filter) {

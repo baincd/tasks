@@ -129,7 +129,7 @@ public class SubtasksHelper {
     return preferences.getBoolean(R.string.p_manual_sort, false)
         && filter != null
         && (filter.supportsSubtasks()
-            || BuiltInFilterExposer.isInbox(context, filter)
+            || BuiltInFilterExposer.isInbox(context, filter, preferences)
             || BuiltInFilterExposer.isTodayFilter(context, filter));
   }
 
@@ -143,7 +143,7 @@ public class SubtasksHelper {
         TaskListMetadata tlm = null;
         if (tagData != null) {
           tlm = taskListMetadataDao.fetchByTagOrFilter(tagData.getRemoteId());
-        } else if (BuiltInFilterExposer.isInbox(context, filter)) {
+        } else if (BuiltInFilterExposer.isInbox(context, filter, preferences)) {
           tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_ALL);
         } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
           tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_TODAY);

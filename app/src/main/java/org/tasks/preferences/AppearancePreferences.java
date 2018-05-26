@@ -52,6 +52,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity
     setExtraOnChange(R.string.p_show_today_filter, EXTRA_FILTERS_CHANGED);
     setExtraOnChange(R.string.p_show_recently_modified_filter, EXTRA_FILTERS_CHANGED);
     setExtraOnChange(R.string.p_show_not_in_list_filter, EXTRA_FILTERS_CHANGED);
+    setExtraOnChange(R.string.p_enable_hidden_tags, EXTRA_FILTERS_CHANGED);
     findPreference(getString(R.string.customize_edit_screen))
         .setOnPreferenceClickListener(
             preference -> {
