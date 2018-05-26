@@ -84,6 +84,9 @@ public abstract class TaskDao {
           + "AND recurrence NOT NULL AND LENGTH(recurrence) > 0")
   public abstract List<Task> getRecurringTasks(List<String> remoteIds);
 
+  @android.arch.persistence.room.Query("UPDATE tasks SET lastNotified = 0, snoozeTime = 0 WHERE completed = 0 and deleted = 0 and lastNotified > 0")
+  public abstract void resetPastNotifications();
+
   @android.arch.persistence.room.Query(
       "UPDATE tasks SET completed = :completionDate " + "WHERE remoteId = :remoteId")
   public abstract void setCompletionDate(String remoteId, long completionDate);
