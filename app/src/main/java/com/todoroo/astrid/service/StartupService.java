@@ -8,7 +8,6 @@ package com.todoroo.astrid.service;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteException;
 import android.os.Environment;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
@@ -88,12 +87,7 @@ public class StartupService {
 
   /** Called when this application is started up */
   public synchronized void onStartupApplication() {
-    try {
-      database.openForWriting();
-    } catch (SQLiteException e) {
-      tracker.reportException(e);
-      return;
-    }
+    database.openForWriting();
 
     // read current version
     final int lastVersion = preferences.getLastSetVersion();

@@ -62,7 +62,6 @@
 	<string name="TEA_control_importance">Prioridade</string>
 	<string name="TEA_control_notes">Descrição</string>
 	<string name="TEA_control_files">Arquivos</string>
-	<string name="TEA_control_google_task_list">Lista de Tarefas do Google</string>
 	<string name="TEA_control_reminders">Lembretes</string>
 	<string name="TEA_control_timer">Temporizador</string>
 	<string name="TEA_control_hidden_section">----Esconder Sempre---</string>
@@ -189,6 +188,10 @@
 	<string name="default_random_reminder_bi_weekly">a cada duas semanas</string>
 	<string name="default_random_reminder_monthly">mensalmente</string>
 	<string name="default_random_reminder_bi_monthly">a cada dois meses</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">minute</item>
+		<item quantity="other">%d Minutos</item>
+	</plurals>
 	<string name="repeat_forever">Repetir para sempre</string>
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="repeat_snackbar">%1$s remarcada para %2$s</string>

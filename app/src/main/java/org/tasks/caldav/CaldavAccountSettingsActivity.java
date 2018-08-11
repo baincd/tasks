@@ -31,7 +31,6 @@ import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking.Events;
 import org.tasks.data.CaldavAccount;
-import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
@@ -192,9 +191,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
 
   private String getNewPassword() {
     String input = password.getText().toString().trim();
-    return PASSWORD_MASK.equals(input)
-        ? encryption.decrypt(caldavAccount.getPassword())
-        : input;
+    return PASSWORD_MASK.equals(input) ? encryption.decrypt(caldavAccount.getPassword()) : input;
   }
 
   private void save() {
@@ -324,12 +321,9 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     } else if (t instanceof ConnectException) {
       showSnackbar(R.string.network_error);
     } else {
-      showGenericError();
+      Timber.e(t);
+      showSnackbar(R.string.error_adding_account);
     }
-  }
-
-  private void showGenericError() {
-    showSnackbar(R.string.error_adding_account);
   }
 
   private void showSnackbar(int resId) {

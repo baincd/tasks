@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -118,9 +118,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setTitle(
-        caldavCalendar == null
-            ? getString(R.string.new_list)
-            : caldavCalendar.getName());
+        caldavCalendar == null ? getString(R.string.new_list) : caldavCalendar.getName());
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
             this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
@@ -259,7 +257,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     tracker.reportEvent(Events.CALDAV_LIST_ADDED);
     setResult(
         RESULT_OK,
-        new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
+        new Intent().putExtra(MainActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
     finish();
   }
 
@@ -270,7 +268,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     setResult(
         RESULT_OK,
         new Intent(ACTION_RELOAD)
-            .putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
+            .putExtra(MainActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
     finish();
   }
 
@@ -359,7 +357,8 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
             (dialog, which) -> {
               CaldavClient caldavClient =
                   new CaldavClient(caldavAccount, caldavCalendar, encryption);
-              ProgressDialog progressDialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
+              ProgressDialog progressDialog =
+                  dialogBuilder.newProgressDialog(R.string.contacting_server);
               progressDialog.show();
               caldavClient
                   .deleteCollection()

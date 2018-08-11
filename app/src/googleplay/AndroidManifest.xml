@@ -25,6 +25,10 @@
   <application tools:ignore="GoogleAppIndexingWarning">
 
     <meta-data
+      android:name="firebase_crashlytics_collection_enabled"
+      android:value="false"/>
+
+    <meta-data
       android:name="com.google.android.backup.api_key"
       android:value="AEdPqrEAAAAI49v5bBusi_bq1bgLBB1LIsepNV0eBrFkQrBZkw"/>
 
@@ -43,29 +47,6 @@
     <activity
       android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
       android:theme="@style/TranslucentDialog"/>
-
-    <!-- Google Analytics -->
-
-    <receiver
-      android:enabled="true"
-      android:name="com.google.android.gms.analytics.AnalyticsReceiver">
-      <intent-filter>
-        <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
-      </intent-filter>
-    </receiver>
-
-    <service
-      android:enabled="true"
-      android:exported="false"
-      android:name="com.google.android.gms.analytics.AnalyticsService"/>
-
-    <receiver
-      android:exported="true"
-      android:name="com.google.android.gms.analytics.CampaignTrackingReceiver">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER"/>
-      </intent-filter>
-    </receiver>
   </application>
 
 </manifest>

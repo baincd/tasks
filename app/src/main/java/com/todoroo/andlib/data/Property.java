@@ -87,6 +87,11 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     IntegerProperty(String name, String expression) {
       super(null, name, expression);
     }
+
+    @Override
+    public IntegerProperty as(String newAlias) {
+      return (IntegerProperty) super.as(newAlias);
+    }
   }
 
   /**

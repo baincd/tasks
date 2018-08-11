@@ -3,7 +3,7 @@ sudo: required
 jdk: oraclejdk8
 env:
   global:
-    - TARGET_API=27
+    - TARGET_API=28
     - BUILD_TOOLS=27.0.3
   matrix:
     - EMULATOR_API=21 ANDROID_ABI=armeabi-v7a
@@ -12,6 +12,7 @@ android:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
     - tools # https://github.com/travis-ci/travis-ci/issues/6040
     - android-$TARGET_API
+    - android-27 # dav4android, ical4android
     - android-$EMULATOR_API
     - sys-img-$ANDROID_ABI-android-$EMULATOR_API
     - platform-tools

@@ -8,14 +8,12 @@ public class Tracker {
   @Inject
   public Tracker() {}
 
-  public void setTrackingEnabled(boolean enabled) {}
-
-  public void reportException(Throwable t) {
-    Timber.e(t, t.getMessage());
+  public static void report(Exception e) {
+    Timber.e(e);
   }
 
-  public void reportException(Thread thread, Throwable t) {
-    Timber.e(t, t.getMessage());
+  public void reportException(Throwable t) {
+    Timber.e(t);
   }
 
   public void reportEvent(Tracking.Events event) {}

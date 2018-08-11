@@ -2,7 +2,6 @@ package org.tasks;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
-import at.bitfire.ical4android.InvalidCalendarException;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.todoroo.astrid.data.Task;
@@ -24,7 +23,7 @@ public class TestUtilities {
     }
   }
 
-  public static  Task vtodo(String path) {
+  public static Task vtodo(String path) {
     Task task = new Task();
 
     CaldavConverter.apply(task, fromResource(path));
@@ -60,8 +59,8 @@ public class TestUtilities {
 
   private static at.bitfire.ical4android.Task fromString(String task) {
     try {
-      return at.bitfire.ical4android.Task.fromReader(new StringReader(task)).get(0);
-    } catch (IOException | InvalidCalendarException e) {
+      return at.bitfire.ical4android.Task.Companion.fromReader(new StringReader(task)).get(0);
+    } catch (Exception e) {
       throw new IllegalArgumentException(e);
     }
   }

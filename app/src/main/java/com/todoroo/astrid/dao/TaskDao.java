@@ -8,9 +8,7 @@ package com.todoroo.astrid.dao;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,9 +23,6 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.ArrayList;
 import java.util.List;
 import org.tasks.BuildConfig;
-import org.tasks.data.GoogleTaskAccount;
-import org.tasks.data.GoogleTaskList;
-import org.tasks.data.LimitOffsetDataSource;
 import org.tasks.jobs.AfterSaveIntentService;
 import timber.log.Timber;
 
@@ -62,7 +57,8 @@ public abstract class TaskDao {
   @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE _id IN (:taskIds)")
   public abstract List<Task> fetch(List<Long> taskIds);
 
-  @android.arch.persistence.room.Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
+  @android.arch.persistence.room.Query(
+      "SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
   public abstract int activeTimers();
 
   @android.arch.persistence.room.Query(
@@ -98,9 +94,10 @@ public abstract class TaskDao {
   @android.arch.persistence.room.Query(
       "SELECT tasks.* FROM tasks "
           + "LEFT JOIN google_tasks ON tasks._id = google_tasks.task "
-          + "WHERE tasks.modified > google_tasks.last_sync "
-          + "OR google_tasks.remote_id = ''")
-  public abstract List<Task> getGoogleTasksToPush();
+          + "WHERE list_id IN (SELECT remote_id FROM google_task_lists WHERE account = :account)"
+          + "AND (tasks.modified > google_tasks.last_sync "
+          + "OR google_tasks.remote_id = '')")
+  public abstract List<Task> getGoogleTasksToPush(String account);
 
   @android.arch.persistence.room.Query(
       "SELECT tasks.* FROM tasks "
@@ -229,24 +226,18 @@ public abstract class TaskDao {
   }
 
   public Cursor getCursor(String queryTemplate) {
+    return getCursor(queryTemplate, Task.PROPERTIES);
+  }
+
+  public Cursor getCursor(String queryTemplate, Property<?>... properties) {
     Query query =
-        Query.select(Task.PROPERTIES)
+        Query.select(properties)
             .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate));
     String queryString = query.from(Task.TABLE).toString();
     if (BuildConfig.DEBUG) {
       Timber.v(queryString);
     }
     return database.rawQuery(queryString);
-  }
-
-  public LimitOffsetDataSource getLimitOffsetDataSource(
-      String queryTemplate, Property<?>... properties) {
-    String query =
-        Query.select(properties)
-            .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
-            .from(Task.TABLE)
-            .toString();
-    return new LimitOffsetDataSource(database, query);
   }
 
   /** Generates SQL clauses */

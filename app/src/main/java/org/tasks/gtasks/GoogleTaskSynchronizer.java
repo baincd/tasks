@@ -129,7 +129,7 @@ public class GoogleTaskSynchronizer {
 
   public void sync() {
     List<GoogleTaskAccount> accounts = googleTaskListDao.getAccounts();
-    for (int i = 0 ; i < accounts.size() ; i++) {
+    for (int i = 0; i < accounts.size(); i++) {
       GoogleTaskAccount account = accounts.get(i);
       Timber.d("%s: start sync", account);
       try {
@@ -174,7 +174,8 @@ public class GoogleTaskSynchronizer {
   }
 
   private void synchronize(GoogleTaskAccount account) throws IOException {
-    if (!permissionChecker.canAccessAccounts() || googleAccountManager.getAccount(account.getAccount()) == null) {
+    if (!permissionChecker.canAccessAccounts()
+        || googleAccountManager.getAccount(account.getAccount()) == null) {
       account.setError(context.getString(R.string.cannot_access_account));
       googleTaskListDao.update(account);
       localBroadcastManager.broadcastRefreshList();
@@ -182,7 +183,7 @@ public class GoogleTaskSynchronizer {
     }
 
     GtasksInvoker gtasksInvoker = new GtasksInvoker(context, playServices, account.getAccount());
-    pushLocalChanges(gtasksInvoker);
+    pushLocalChanges(account, gtasksInvoker);
 
     List<TaskList> gtaskLists = new ArrayList<>();
     String nextPageToken = null;
@@ -212,8 +213,9 @@ public class GoogleTaskSynchronizer {
     account.setError("");
   }
 
-  private void pushLocalChanges(GtasksInvoker gtasksInvoker) throws UserRecoverableAuthIOException {
-    List<Task> tasks = taskDao.getGoogleTasksToPush();
+  private void pushLocalChanges(GoogleTaskAccount account, GtasksInvoker gtasksInvoker)
+      throws UserRecoverableAuthIOException {
+    List<Task> tasks = taskDao.getGoogleTasksToPush(account.getAccount());
     for (Task task : tasks) {
       try {
         pushTask(task, gtasksInvoker);
@@ -322,8 +324,8 @@ public class GoogleTaskSynchronizer {
     taskDao.save(task);
   }
 
-  private synchronized void fetchAndApplyRemoteChanges(GtasksInvoker gtasksInvoker, GoogleTaskList list)
-      throws UserRecoverableAuthIOException {
+  private synchronized void fetchAndApplyRemoteChanges(
+      GtasksInvoker gtasksInvoker, GoogleTaskList list) throws UserRecoverableAuthIOException {
     String listId = list.getRemoteId();
     long lastSyncDate = list.getLastSync();
 

@@ -11,6 +11,7 @@ public class Tracking {
     SET_THEME(R.string.tracking_category_preferences, R.string.p_theme),
     SET_COLOR(R.string.tracking_category_preferences, R.string.p_theme_color),
     SET_ACCENT(R.string.tracking_category_preferences, R.string.p_theme_accent),
+    SET_LAUNCHER(R.string.tracking_category_preferences, R.string.p_theme_launcher),
     SET_TAG_COLOR(R.string.tracking_category_tags, R.string.p_theme_color),
     WIDGET_ADD(R.string.tracking_category_widget, R.string.tracking_action_add),
     TIMER_START(R.string.tracking_category_timer, R.string.tracking_action_start),
@@ -30,7 +31,6 @@ public class Tracking {
     MULTISELECT_MOVE(R.string.tracking_category_event, R.string.tracking_event_multiselect_move),
     CLEAR_COMPLETED(R.string.tracking_category_event, R.string.tracking_action_clear_completed),
     UPGRADE(R.string.tracking_category_event, R.string.tracking_event_upgrade),
-    DB_OPEN_FAILED(R.string.tracking_category_error, R.string.tracking_event_db_open),
     TASK_CREATION_FAILED(R.string.tracking_category_error, R.string.tracking_event_task_creation),
     NIGHT_MODE_MISMATCH(
         R.string.tracking_category_event, R.string.tracking_event_night_mode_mismatch),
@@ -46,7 +46,8 @@ public class Tracking {
     IMPORT_JSON(R.string.tracking_category_backup, R.string.tracking_action_import_json),
     EXPORT(R.string.tracking_category_backup, R.string.tracking_action_export),
     CALDAV_ACCOUNT_ADDED(R.string.tracking_category_caldav, R.string.tracking_action_add_account),
-    CALDAV_ACCOUNT_REMOVED(R.string.tracking_category_caldav, R.string.tracking_action_remove_account),
+    CALDAV_ACCOUNT_REMOVED(
+        R.string.tracking_category_caldav, R.string.tracking_action_remove_account),
     CALDAV_LIST_ADDED(R.string.tracking_category_caldav, R.string.tracking_action_new_list),
     CALDAV_LIST_DELETED(R.string.tracking_category_caldav, R.string.tracking_action_delete_list);
 

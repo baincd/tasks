@@ -1,1 +1,5 @@
-include 'app', 'ical4android', 'dav4android'
+include 'app'
+
+includeBuild 'dav4android'
+includeBuild 'ical4android'
+includeBuild 'ShortcutBadger/ShortcutBadger'

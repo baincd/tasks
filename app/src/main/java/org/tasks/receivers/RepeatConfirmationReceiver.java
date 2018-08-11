@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskDao;
@@ -33,8 +33,8 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
   @Override
   public void onReceive(final Context context, final Intent intent) {
     TaskListFragment taskListFragment = null;
-    if (activity instanceof TaskListActivity) {
-      taskListFragment = ((TaskListActivity) activity).getTaskListFragment();
+    if (activity instanceof MainActivity) {
+      taskListFragment = ((MainActivity) activity).getTaskListFragment();
     }
     if (taskListFragment == null) {
       Timber.d("No task list fragment");
@@ -88,12 +88,9 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
   private String getRelativeDateAndTimeString(Context context, long date) {
     String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
     if (Task.hasDueTime(date)) {
-      // TODO: localize this
       dueString =
-          String.format(
-              "%s at %s",
-              dueString, // $NON-NLS-1$
-              DateUtilities.getTimeString(context, date));
+          context.getString(
+              R.string.repeat_snackbar_time, dueString, DateUtilities.getTimeString(context, date));
     }
     return dueString;
   }

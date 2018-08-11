@@ -1,17 +1,15 @@
 package org.tasks.injection;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
-import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import dagger.Subcomponent;
-import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ColorPickerActivity;
@@ -64,8 +62,6 @@ public interface ActivityComponent {
 
   void inject(DashClockSettings dashClockSettings);
 
-  void inject(AACRecordingActivity aacRecordingActivity);
-
   void inject(CustomFilterActivity customFilterActivity);
 
   void inject(CalendarReminderActivity calendarReminderActivity);
@@ -76,7 +72,7 @@ public interface ActivityComponent {
 
   void inject(ShareLinkActivity shareLinkActivity);
 
-  void inject(TaskListActivity taskListActivity);
+  void inject(MainActivity mainActivity);
 
   void inject(BeastModePreferences beastModePreferences);
 
@@ -93,8 +89,6 @@ public interface ActivityComponent {
   void inject(FilterSelectionActivity filterSelectionActivity);
 
   void inject(DateAndTimePickerActivity dateAndTimePickerActivity);
-
-  void inject(AddAttachmentActivity addAttachmentActivity);
 
   void inject(DatePickerActivity datePickerActivity);
 

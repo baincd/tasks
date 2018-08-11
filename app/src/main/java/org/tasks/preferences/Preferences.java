@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
+import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.TaskAttachment;
 import org.tasks.injection.ForApplication;
@@ -182,7 +183,7 @@ public class Preferences {
   }
 
   public boolean isTrackingEnabled() {
-    return getBoolean(R.string.p_collect_statistics, true);
+    return !BuildConfig.DEBUG && getBoolean(R.string.p_collect_statistics, true);
   }
 
   public String getDefaultCalendar() {
@@ -446,11 +447,11 @@ public class Preferences {
     return getBoolean(R.string.p_rmd_persistent, true);
   }
 
-  public void setSyncOngoing(boolean value) {
-    setBoolean(R.string.p_sync_ongoing, value);
-  }
-
   public boolean isSyncOngoing() {
     return getBoolean(R.string.p_sync_ongoing, false);
+  }
+
+  public void setSyncOngoing(boolean value) {
+    setBoolean(R.string.p_sync_ongoing, value);
   }
 }

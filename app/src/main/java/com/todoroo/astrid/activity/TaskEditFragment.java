@@ -136,7 +136,7 @@ public final class TaskEditFragment extends InjectingFragment
 
     FragmentManager fragmentManager = getChildFragmentManager();
     List<TaskEditControlFragment> taskEditControlFragments =
-        taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager, model);
+        taskEditControlSetFragmentManager.getOrCreateFragments(this, model);
 
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     for (int i = 0; i < taskEditControlFragments.size(); i++) {
@@ -213,9 +213,9 @@ public final class TaskEditFragment extends InjectingFragment
       }
 
       if (isNewTask) {
-        ((TaskListActivity) getActivity()).getTaskListFragment().onTaskCreated(model.getUuid());
+        ((MainActivity) getActivity()).getTaskListFragment().onTaskCreated(model.getUuid());
       } else {
-        ((TaskListActivity) getActivity()).getTaskListFragment().onTaskSaved();
+        ((MainActivity) getActivity()).getTaskListFragment().onTaskSaved();
       }
       callback.taskEditFinished();
     } else {

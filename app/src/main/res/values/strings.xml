@@ -78,7 +78,7 @@ File %1$s contained %2$s.\n\n
   <!-- Label for DateButtons with no value -->
   <string name="WID_dateButtonUnset">Click to set</string>
 
-  <!-- ================================================= TaskListActivity == -->
+  <!-- ================================================= MainActivity == -->
 
   <!-- slide 8b: Task List: Displayed instead of list when no items present -->
   <string name="TLA_no_items">There are no tasks here.</string>
@@ -169,6 +169,12 @@ File %1$s contained %2$s.\n\n
   <string name="day_before_due">Day before due</string>
   <string name="week_before_due">Week before due</string>
 
+  <!--The following strings appear at the %s in TEA_hideUntil_display, thus generally mid-sentence and with different spelling than the corresponding general strings like due_date etc.-->
+  <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">due date</string>
+  <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">due time</string>
+  <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">day before due</string>
+  <string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">week before due</string>
+
   <!-- Task edit control set descriptors -->
 
   <string name="TEA_control_when">When</string>
@@ -178,7 +184,6 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_control_notes">Description</string>
 
   <string name="TEA_control_files">Files</string>
-  <string name="TEA_control_google_task_list">Google Task List</string>
 
   <string name="TEA_control_reminders">Reminders</string>
 
@@ -594,6 +599,7 @@ File %1$s contained %2$s.\n\n
   <string name="repeat_occurs">Occurs</string>
 
   <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>
+  <string comment="display new due date and time in snackbar after completing repeating task, e.g. 'Tomorrow at 8 AM' or '21 May at 8 AM'" name="repeat_snackbar_time">%1$s at %2$s</string>
 
   <!-- ========================================================== Extras == -->
 
@@ -760,6 +766,7 @@ File %1$s contained %2$s.\n\n
   <string name="theme">Theme</string>
   <string name="color">Color</string>
   <string name="accent">Accent</string>
+  <string name="launcher_icon">Launcher icon</string>
   <string name="theme_red">Red</string>
   <string name="theme_pink">Pink</string>
   <string name="theme_purple">Purple</string>
@@ -895,4 +902,5 @@ File %1$s contained %2$s.\n\n
   <string name="logout_warning">Log out of %s? All data for this account will be removed from your device</string>
   <string name="cannot_access_account">Cannot access account</string>
   <string name="reinitialize_account">Reinitialize</string>
+  <string name="action_create_new_task">Create new task</string>
 </resources>

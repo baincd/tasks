@@ -82,13 +82,12 @@ public class TaskListFragment extends InjectingFragment
   public static final String GTASK_METADATA_JOIN = "for_gtask"; // $NON-NLS-1$
   public static final String CALDAV_METADATA_JOIN = "for_caldav"; // $NON-NLS-1$
   public static final String FILE_METADATA_JOIN = "for_actions"; // $NON-NLS-1$
+  public static final int REQUEST_MOVE_TASKS = 11545;
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
-
   // --- instance variables
   private static final int REQUEST_EDIT_FILTER = 11544;
-  public static final int REQUEST_MOVE_TASKS = 11545;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject protected Tracker tracker;
   protected Filter filter;
@@ -266,7 +265,7 @@ public class TaskListFragment extends InjectingFragment
                                 Criterion.or(
                                     Task.NOTES.like("%" + query + "%"),
                                     Task.TITLE.like("%" + query + "%")))));
-            ((TaskListActivity) getActivity()).onFilterItemClicked(savedFilter);
+            ((MainActivity) getActivity()).onFilterItemClicked(savedFilter);
             MenuItemCompat.collapseActionView(item);
             return true;
           }
@@ -446,11 +445,7 @@ public class TaskListFragment extends InjectingFragment
     // set up list adapters
     taskAdapter = createTaskAdapter();
     recyclerAdapter =
-        new TaskListRecyclerAdapter(
-            taskAdapter,
-            viewHolderFactory,
-            this,
-            actionModeProvider);
+        new TaskListRecyclerAdapter(taskAdapter, viewHolderFactory, this, actionModeProvider);
     taskAdapter.setHelper(recyclerAdapter.getAsyncPagedListDiffer());
   }
 
@@ -488,7 +483,7 @@ public class TaskListFragment extends InjectingFragment
   }
 
   protected void onTaskDelete(Task task) {
-    TaskListActivity activity = (TaskListActivity) getActivity();
+    MainActivity activity = (MainActivity) getActivity();
     TaskEditFragment tef = activity.getTaskEditFragment();
     if (tef != null) {
       if (task.getId() == tef.model.getId()) {
@@ -515,14 +510,14 @@ public class TaskListFragment extends InjectingFragment
     } else if (requestCode == REQUEST_EDIT_FILTER) {
       if (resultCode == RESULT_OK) {
         String action = data.getAction();
-        TaskListActivity activity = (TaskListActivity) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         if (FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
         } else if (FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
           activity
               .getIntent()
               .putExtra(
-                  TaskListActivity.OPEN_FILTER,
+                  MainActivity.OPEN_FILTER,
                   (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
           activity.recreate();
         }
