@@ -2,26 +2,29 @@ package org.tasks.scheduling;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
-import org.tasks.jobs.JobManager;
+import org.tasks.jobs.WorkManager;
 import timber.log.Timber;
 
 public class BackgroundScheduler extends InjectingJobIntentService {
 
   @Inject @ForApplication Context context;
   @Inject TaskDao taskDao;
-  @Inject JobManager jobManager;
+  @Inject WorkManager jobManager;
   @Inject RefreshScheduler refreshScheduler;
 
   public static void enqueueWork(Context context) {
     BackgroundScheduler.enqueueWork(
-        context, BackgroundScheduler.class, JobManager.JOB_ID_BACKGROUND_SCHEDULER, new Intent());
+        context,
+        BackgroundScheduler.class,
+        InjectingJobIntentService.JOB_ID_BACKGROUND_SCHEDULER,
+        new Intent(context, BackgroundScheduler.class));
   }
 
   @Override

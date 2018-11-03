@@ -31,8 +31,6 @@
 	<string name="TLA_menu_sort">Сортировка</string>
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
-	<string name="TAd_hiddenFormat">%s [скрыто]</string>
-	<string name="TAd_completed">Завершено\n%s</string>
 	<string name="TAd_actionEditTask">Редактировать</string>
 	<string name="SSD_sort_drag">Ручная сортировка с подзадачами</string>
 	<string name="SSD_sort_auto">Умная сортировка</string>
@@ -72,13 +70,6 @@
 	<string name="TEA_control_timer">Учет времени</string>
 	<string name="TEA_control_hidden_section">Всегда скрывать</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
-	<string name="missed_call">Пропущенный звонок от %s</string>
-	<string name="MCA_return_call">Позвонить сейчас</string>
-	<string name="MCA_add_task">Позвонить позже</string>
-	<string name="MCA_ignore">Игнорировать</string>
-	<string name="missed_calls">Пропущенные звонки</string>
-	<string name="MCA_task_title_name">Перезвонить %1$s в %2$s</string>
-	<string name="MCA_task_title_no_name">Перезвонить %s</string>
 	<string name="CRA_ignore">Игнорировать</string>
 	<string name="CRA_title">Необходим список встреч?</string>
 	<string name="CRA_ignore_body">Вы пропустили несколько событий календаря. Прекратить спрашивать о них?</string>

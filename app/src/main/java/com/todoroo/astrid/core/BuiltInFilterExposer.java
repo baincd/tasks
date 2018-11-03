@@ -114,7 +114,7 @@ public final class BuiltInFilterExposer {
 
   public Filter getMyTasksFilter() {
     Filter myTasksFilter = getMyTasksFilter(context.getResources(), preferences);
-    myTasksFilter.icon = R.drawable.ic_inbox_24dp;
+    myTasksFilter.icon = R.drawable.ic_outline_all_inbox_24px;
     return myTasksFilter;
   }
 
@@ -125,17 +125,17 @@ public final class BuiltInFilterExposer {
 
     if (preferences.getBoolean(R.string.p_show_today_filter, true)) {
       Filter todayFilter = getTodayFilter(r);
-      todayFilter.icon = R.drawable.ic_today_24dp;
+      todayFilter.icon = R.drawable.ic_outline_today_24px;
       filters.add(todayFilter);
     }
     if (preferences.getBoolean(R.string.p_show_recently_modified_filter, true)) {
       Filter recentlyModifiedFilter = getRecentlyModifiedFilter(r);
-      recentlyModifiedFilter.icon = R.drawable.ic_history_24dp;
+      recentlyModifiedFilter.icon = R.drawable.ic_outline_history_24px;
       filters.add(recentlyModifiedFilter);
     }
     if (preferences.getBoolean(R.string.p_show_not_in_list_filter, true)) {
       Filter uncategorizedFilter = getUncategorizedFilter(r);
-      uncategorizedFilter.icon = R.drawable.ic_label_outline_24dp;
+      uncategorizedFilter.icon = R.drawable.ic_outline_label_off_24px;
       filters.add(uncategorizedFilter);
     }
     // transmit filter list

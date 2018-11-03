@@ -2,11 +2,10 @@ package org.tasks.scheduling;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.JobIntentService;
+import androidx.core.app.JobIntentService;
 import javax.inject.Inject;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
-import org.tasks.jobs.JobManager;
 import org.tasks.location.GeofenceService;
 import timber.log.Timber;
 
@@ -18,8 +17,8 @@ public class GeofenceSchedulingIntentService extends InjectingJobIntentService {
     JobIntentService.enqueueWork(
         context,
         GeofenceSchedulingIntentService.class,
-        JobManager.JOB_ID_GEOFENCE_SCHEDULING,
-        new Intent());
+        InjectingJobIntentService.JOB_ID_GEOFENCE_SCHEDULING,
+        new Intent(context, GeofenceSchedulingIntentService.class));
   }
 
   @Override

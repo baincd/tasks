@@ -92,16 +92,10 @@ File %1$s contained %2$s.\n\n
   <!-- Menu: Settings -->
   <string name="TLA_menu_settings">Settings</string>
 
-  <!-- ====================================================== TaskAdapter == -->
-
-  <!-- Format string to indicate task is hidden (%s => task name) -->
-  <string name="TAd_hiddenFormat">%s [hidden]</string>
-
-  <!-- slide 22b: indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
-
   <!-- slide 15a: Action Button: edit task -->
   <string name="TAd_actionEditTask">Edit</string>
+  <string name="action_call">Call</string>
+  <string name="action_open">Open</string>
 
   <!-- ============================================== SortSelectionDialog == -->
 
@@ -193,27 +187,6 @@ File %1$s contained %2$s.\n\n
 
   <!-- Text to load more activity -->
   <string name="TEA_load_more">Load more…</string>
-
-  <!-- ===================================================== MissedCallActivity == -->
-
-  <string name="missed_call">Missed call from %s</string>
-
-  <!-- Missed call: return call -->
-  <string name="MCA_return_call">Call now</string>
-
-  <!-- Missed call: return call -->
-  <string name="MCA_add_task">Call later</string>
-
-  <!-- Missed call: return call -->
-  <string name="MCA_ignore">Ignore</string>
-
-  <string name="missed_calls">Missed calls</string>
-
-  <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
-  <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
-
-  <!-- Missed call: task title no name (%s -> number)-->
-  <string name="MCA_task_title_no_name">Call %s back</string>
 
   <!-- ======================================= Calendar reminder activity == -->
 
@@ -788,6 +761,7 @@ File %1$s contained %2$s.\n\n
   <string name="theme_blue_grey">Blue grey</string>
   <string name="theme_black">Black</string>
   <string name="theme_dark_grey">Dark grey</string>
+  <string name="theme_white">White</string>
   <string name="theme_light">Light</string>
   <string name="theme_dark">Dark</string>
   <string name="theme_wallpaper">Wallpaper</string>
@@ -903,4 +877,9 @@ File %1$s contained %2$s.\n\n
   <string name="cannot_access_account">Cannot access account</string>
   <string name="reinitialize_account">Reinitialize</string>
   <string name="action_create_new_task">Create new task</string>
+  <string name="show_description">Show description</string>
+  <string name="show_full_description">Show full description</string>
+  <string name="linkify">Show links</string>
+  <string name="linkify_description">Add links to websites, addresses, and phone numbers</string>
+  <string name="show_list_indicators">Show list chips</string>
 </resources>

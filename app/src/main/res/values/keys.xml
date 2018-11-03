@@ -44,9 +44,6 @@
   <!-- default random reminder setting (in hours) -->
   <string name="p_rmd_default_random_hours">notif_default_reminder</string>
 
-  <!-- field missed calls preference -->
-  <string name="p_field_missed_calls">field_missed_calls</string>
-
   <!-- calendar reminders preference -->
   <string name="p_calendar_reminders">p_calendar_reminder</string>
 
@@ -249,7 +246,6 @@
   <string name="tracking_event_night_mode_mismatch">Night Mismatch</string>
   <string name="tracking_event_play_services_error">Play Services Error</string>
   <string name="tracking_event_upgrade">Upgrade</string>
-  <string name="tracking_event_db_open">DB open</string>
   <string name="tracking_event_task_creation">Task creation</string>
   <string name="tracking_event_multiselect_delete">Multiselect delete</string>
   <string name="tracking_event_multiselect_clone">Multiselect clone</string>
@@ -279,6 +275,7 @@
 
   <string name="debug_consume">Consume</string>
   <string name="debug_strict_mode">Strict mode</string>
+  <string name="debug_leak_canary">LeakCanary</string>
   <string name="debug_pro">Unlock pro</string>
   <string name="debug_buy">Buy</string>
   <string name="debug">Debug</string>
@@ -287,9 +284,15 @@
   <string name="p_background_sync">gtask_background_sync</string>
   <string name="p_bundle_notifications">bundle_notifications</string>
   <string name="p_strict_mode">strict_mode</string>
+  <string name="p_leak_canary">leak_canary</string>
   <string name="p_debug_pro">debug_pro</string>
   <string name="warned_play_services">warned_play_services</string>
   <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
   <string name="p_purchases">purchases</string>
   <string name="p_sync_ongoing">sync_ongoing</string>
+  <string name="p_last_backup">last_backup</string>
+  <string name="p_show_description">show_description</string>
+  <string name="p_show_full_description">show_full_description</string>
+  <string name="p_linkify_task_list">linkify_task_list</string>
+  <string name="p_show_list_indicators">show_list_indicators</string>
 </resources>

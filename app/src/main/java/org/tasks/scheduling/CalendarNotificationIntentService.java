@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v4.app.JobIntentService;
+import androidx.core.app.JobIntentService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
 import java.util.concurrent.TimeUnit;
@@ -14,8 +14,8 @@ import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.injection.ForApplication;
+import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
-import org.tasks.jobs.JobManager;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -33,8 +33,8 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
     JobIntentService.enqueueWork(
         context,
         CalendarNotificationIntentService.class,
-        JobManager.JOB_ID_CALENDAR_NOTIFICATION,
-        new Intent());
+        InjectingJobIntentService.JOB_ID_CALENDAR_NOTIFICATION,
+        new Intent(context, CalendarNotificationIntentService.class));
   }
 
   @Override

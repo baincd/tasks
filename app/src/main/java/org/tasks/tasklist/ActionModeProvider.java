@@ -4,7 +4,7 @@ import static com.todoroo.astrid.activity.TaskListFragment.REQUEST_MOVE_TASKS;
 import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
 
 import android.content.Context;
-import android.support.v7.view.ActionMode;
+import androidx.appcompat.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -113,8 +113,11 @@ public class ActionModeProvider {
 
               @Override
               public void onDestroyActionMode(ActionMode actionMode) {
-                adapter.clearSelections();
                 taskListRecyclerAdapter.onDestroyActionMode();
+                if (adapter.getNumSelected() > 0) {
+                  adapter.clearSelections();
+                  taskListRecyclerAdapter.notifyDataSetChanged();
+                }
               }
 
               private void deleteSelectedItems() {

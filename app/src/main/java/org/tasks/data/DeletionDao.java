@@ -3,15 +3,23 @@ package org.tasks.data;
 import static com.google.common.collect.Iterables.partition;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Transaction;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Query;
+import androidx.room.Transaction;
+import com.todoroo.astrid.dao.Database;
 import java.util.ArrayList;
 import java.util.List;
 
 @Dao
 public abstract class DeletionDao {
+
+  private final Database database;
+
+  public DeletionDao(Database database) {
+    this.database = database;
+  }
+
   @Query("SELECT _id FROM tasks WHERE deleted > 0")
   public abstract List<Long> getDeleted();
 
@@ -43,6 +51,7 @@ public abstract class DeletionDao {
       deleteCaldavTasks(partition);
       deleteTasks(partition);
     }
+    database.onDatabaseUpdated();
   }
 
   @Query("UPDATE tasks SET modified = :timestamp, deleted = :timestamp WHERE _id IN(:ids)")
@@ -53,6 +62,7 @@ public abstract class DeletionDao {
     for (List<Long> partition : partition(ids, 997)) {
       markDeleted(now, partition);
     }
+    database.onDatabaseUpdated();
   }
 
   @Query("SELECT task FROM google_tasks WHERE deleted = 0 AND list_id = :listId")

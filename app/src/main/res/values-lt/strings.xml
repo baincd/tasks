@@ -31,9 +31,9 @@
 	<string name="TLA_menu_sort">Eiliškumas</string>
 	<string name="TLA_menu_search">Ieškoti</string>
 	<string name="TLA_menu_settings">Nustatymai</string>
-	<string name="TAd_hiddenFormat">%s [paslėpta]</string>
-	<string name="TAd_completed">Užbaigta\n%s</string>
 	<string name="TAd_actionEditTask">Redaguoti</string>
+	<string name="action_call">Skambinti</string>
+	<string name="action_open">Atidaryti</string>
 	<string name="SSD_sort_drag">Rankinis eiliškumas su sub-užduotimis</string>
 	<string name="SSD_sort_auto">Gudrus eiliškumas</string>
 	<string name="SSD_sort_alpha">Pagal pavadinimą</string>
@@ -72,13 +72,6 @@
 	<string name="TEA_control_timer">Laikmačio nustatymai</string>
 	<string name="TEA_control_hidden_section">----Visada slėpti----</string>
 	<string name="TEA_load_more">Užkrauti daugiau...</string>
-	<string name="missed_call">Praleistas skambutis nuo: %s</string>
-	<string name="MCA_return_call">Paskambinti dabar</string>
-	<string name="MCA_add_task">Paskambinti vėliau</string>
-	<string name="MCA_ignore">Ignoruoti</string>
-	<string name="missed_calls">Praleisti skambučiai</string>
-	<string name="MCA_task_title_name">Perskambinti %1$s šiuo metu: %2$s</string>
-	<string name="MCA_task_title_no_name">Perskambinti %s</string>
 	<string name="CRA_ignore">Ignoruoti</string>
 	<string name="CRA_title">Reikia susitikimų sąrašo?</string>
 	<string name="CRA_ignore_body">Jūs ignoravote kelis kalendoriaus įvykius. Ar Tasks turėtų nustoti apie juos klausti?</string>
@@ -513,4 +506,9 @@ sukonfigūruota tinkamai.</string>
 	<string name="cannot_access_account">Paskyra nepasiekiama.</string>
 	<string name="reinitialize_account">Inicijuoti iš naujo</string>
 	<string name="action_create_new_task">Sukurti naują užduotį</string>
+	<string name="show_description">Rodyti aprašymą</string>
+	<string name="show_full_description">Rodyti pilną aprašymą</string>
+	<string name="linkify">Rodyti nuorodas</string>
+	<string name="linkify_description">Pridėti nuorodas į puslapius, adresus ir telefono numerius</string>
+	<string name="show_list_indicators">Rodyti sąrašą lustų</string>
 </resources>

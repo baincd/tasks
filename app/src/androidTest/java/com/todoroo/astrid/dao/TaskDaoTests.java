@@ -9,7 +9,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertNull;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.runner.AndroidJUnit4;
 import com.google.common.collect.ImmutableList;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
@@ -19,12 +19,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
+import org.tasks.jobs.WorkManager;
 
 @RunWith(AndroidJUnit4.class)
 public class TaskDaoTests extends InjectingTestCase {
 
   @Inject TaskDao taskDao;
   @Inject TaskDeleter taskDeleter;
+  @Inject WorkManager workManager;
+
+  @Override
+  public void setUp() {
+    super.setUp();
+    workManager.init();
+  }
 
   /** Test basic task creation, fetch, and save */
   @Test

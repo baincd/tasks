@@ -3,7 +3,7 @@ package org.tasks.location;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.JobIntentService;
+import androidx.core.app.JobIntentService;
 import com.google.android.gms.location.GeofencingEvent;
 import com.todoroo.astrid.reminders.ReminderService;
 import java.util.List;
@@ -13,7 +13,6 @@ import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
-import org.tasks.jobs.JobManager;
 import timber.log.Timber;
 
 public class GeofenceTransitionsIntentService extends InjectingJobIntentService {
@@ -65,7 +64,7 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
       JobIntentService.enqueueWork(
           context,
           GeofenceTransitionsIntentService.class,
-          JobManager.JOB_ID_GEOFENCE_TRANSITION,
+          InjectingJobIntentService.JOB_ID_GEOFENCE_TRANSITION,
           intent);
     }
   }

@@ -5,11 +5,9 @@
  */
 package com.todoroo.astrid.reminders;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.preOreo;
-import static org.tasks.PermissionUtil.verifyPermissions;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -18,11 +16,9 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.api.Filter;
@@ -38,7 +34,6 @@ import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionChecker;
-import org.tasks.preferences.PermissionRequestor;
 import org.tasks.receivers.Badger;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
@@ -61,7 +56,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
   @Inject TaskDao taskDao;
   @Inject ReminderService reminderService;
   @Inject AlarmService alarmService;
-  private CheckBoxPreference fieldMissedCalls;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -76,15 +70,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         R.string.p_rmd_quietEnd,
         R.string.p_rmd_persistent);
     resetGeofencesOnChange(R.string.p_geofence_radius, R.string.p_geofence_responsiveness);
-
-    fieldMissedCalls =
-        (CheckBoxPreference) findPreference(getString(R.string.p_field_missed_calls));
-    fieldMissedCalls.setOnPreferenceChangeListener(
-        (preference, newValue) ->
-            newValue != null
-                && (!(boolean) newValue || permissionRequestor.requestMissedCallPermissions()));
-    fieldMissedCalls.setChecked(
-        fieldMissedCalls.isChecked() && permissionChecker.canAccessMissedCallPermissions());
 
     initializeRingtonePreference();
     initializeTimePreference(getDefaultRemindTimePreference(), REQUEST_DEFAULT_REMIND);
@@ -140,7 +125,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     requires(atLeastMarshmallow(), R.string.battery_optimization_settings);
     requires(
         preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification);
-    requires(atLeastJellybean(), R.string.p_bundle_notifications);
   }
 
   private void resetPastNotifications() {
@@ -186,18 +170,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
                 GeofenceSchedulingIntentService.enqueueWork(this);
                 return true;
               });
-    }
-  }
-
-  @Override
-  public void onRequestPermissionsResult(
-      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    if (requestCode == PermissionRequestor.REQUEST_CONTACTS) {
-      if (verifyPermissions(grantResults)) {
-        fieldMissedCalls.setChecked(true);
-      }
-    } else {
-      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
   }
 

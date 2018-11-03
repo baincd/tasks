@@ -29,8 +29,6 @@
 	<string name="TLA_menu_sort">Sortieren</string>
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
-	<string name="TAd_hiddenFormat">%s [versteckt]</string>
-	<string name="TAd_completed">Abgeschlossen\n%s</string>
 	<string name="TAd_actionEditTask">Bearbeiten</string>
 	<string name="SSD_sort_drag">Manuelle Sortierung mit Unteraufgaben</string>
 	<string name="SSD_sort_auto">Smarte Sortierung</string>
@@ -70,13 +68,6 @@
 	<string name="TEA_control_timer">Timer-Einstellungen</string>
 	<string name="TEA_control_hidden_section">----Immer Verbergen----</string>
 	<string name="TEA_load_more">Weitere laden …</string>
-	<string name="missed_call">Verpasster Anruf von %s</string>
-	<string name="MCA_return_call">Jetzt anrufen</string>
-	<string name="MCA_add_task">Später anrufen</string>
-	<string name="MCA_ignore">Ignorieren</string>
-	<string name="missed_calls">Verpasste Anrufe</string>
-	<string name="MCA_task_title_name">%1$s unter %2$s zurückrufen</string>
-	<string name="MCA_task_title_no_name">%s zurückrufen</string>
 	<string name="CRA_ignore">Ablehnen</string>
 	<string name="CRA_title">Willst Du eine Besprechungsliste erstellen?</string>
 	<string name="CRA_ignore_body">Sie haben mehrere Kalendertermine ignoriert. Soll Tasks nicht mehr danach fragen? </string>
@@ -505,4 +496,6 @@
 	<string name="cannot_access_account">Auf das Konto kann nicht zugegriffen werden</string>
 	<string name="reinitialize_account">Neu initialisieren</string>
 	<string name="action_create_new_task">Neue Aufgabe erstellen</string>
+	<string name="show_description">Beschreibung anzeigen</string>
+	<string name="show_full_description">Gesamte Beschreibung anzeigen</string>
 </resources>

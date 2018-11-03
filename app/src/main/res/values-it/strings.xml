@@ -31,9 +31,9 @@
 	<string name="TLA_menu_sort">Ordinamento</string>
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Impostazioni</string>
-	<string name="TAd_hiddenFormat">%s [Nascosto]</string>
-	<string name="TAd_completed">Terminata\n%s</string>
 	<string name="TAd_actionEditTask">Modifica</string>
+	<string name="action_call">Chiama</string>
+	<string name="action_open">Apri</string>
 	<string name="SSD_sort_drag">Ordinamento manuale con attività correlate</string>
 	<string name="SSD_sort_auto">Ordinamento Intelligente</string>
 	<string name="SSD_sort_alpha">Per titolo</string>
@@ -72,13 +72,6 @@
 	<string name="TEA_control_timer">Regolazioni Tempo</string>
 	<string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
 	<string name="TEA_load_more">Caricane altri...</string>
-	<string name="missed_call">Chiamate perse da %s</string>
-	<string name="MCA_return_call">Chiama ora</string>
-	<string name="MCA_add_task">Chiama più tardi</string>
-	<string name="MCA_ignore">Ignora</string>
-	<string name="missed_calls">Chiamate perse</string>
-	<string name="MCA_task_title_name">Richiama %1$s al %2$s</string>
-	<string name="MCA_task_title_no_name">Richiama %s</string>
 	<string name="CRA_ignore">Ignora</string>
 	<string name="CRA_title">Hai bisogno di una lista per le riunioni?</string>
 	<string name="CRA_ignore_body">Hai ignorato diverse chiamate perse. Vuoi che Tasks smetta di notificartele?</string>
@@ -514,4 +507,9 @@ Google Play app sia impostata correttamente</string>
 	<string name="cannot_access_account">Impossibile accedere all\'account</string>
 	<string name="reinitialize_account">Reinizializza</string>
 	<string name="action_create_new_task">Crea nuova attività</string>
+	<string name="show_description">Mostra la descrizione</string>
+	<string name="show_full_description">Mostra la descrizione completa</string>
+	<string name="linkify">Mostra link</string>
+	<string name="linkify_description">Aggiungi link a siti web, indirizzi, numeri telefonici</string>
+	<string name="show_list_indicators">Mostra lista chip</string>
 </resources>
