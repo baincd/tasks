@@ -20,7 +20,7 @@ android {
         testApplicationId "org.tasks.test"
         applicationId "org.tasks"
         versionCode 552
-        versionName "6.4.5"
+        versionName "6.4.5-baincd"
         targetSdkVersion 28
         minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
