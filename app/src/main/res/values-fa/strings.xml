@@ -85,7 +85,6 @@
 	<string name="day_after_tomorrow">پس فردا</string>
 	<string name="next_week">هفته بعد</string>
 	<string name="dont_hide">مخفی نکن</string>
-	<string name="no_deadline_reminder">بدون یادآور موعود</string>
 	<string name="at_deadline">روز موعود</string>
 	<string name="at_deadline_or_overdue">در روز موعد یا پس از موعود</string>
 	<string name="BFE_Active">وظایف من</string>
@@ -114,8 +113,6 @@
 	<string name="premium_remove_file_confirm">آیا مطمن هستید؟ قادر به برگرداندن نخواهید بود</string>
 	<string name="audio_recording_title">ضبط صدا</string>
 	<string name="audio_stop_recording">توقف ضبط</string>
-	<string name="file_type_unhandled">پوزش! هیچ برنامه ای برای بازکردن این فایل پیدا نشد.</string>
-	<string name="file_err_copy">خطای کپی فایل برای ضمیمه</string>
 	<string name="ring_once">یک بار زنگ بزن</string>
 	<string name="ring_five_times">پنج بار زنگ بزن</string>
 	<string name="ring_nonstop">بدون توقف زنگ بزن</string>
@@ -178,7 +175,6 @@
 	<string name="EPr_voiceRemindersEnabled_title">یادآور صوتی</string>
 	<string name="delete_task">حذف وظیفه</string>
 	<string name="voice_command_added_task">وظیفه اضافه شده</string>
-	<string name="external_storage_unavailable">عدم امکان دسترسی به حافظه خارجی</string>
 	<plurals name="Ntasks">
 		<item quantity="one">۱ وظیفه</item>
 		<item quantity="other">%d tasks</item>
@@ -218,12 +214,8 @@
 	<string name="pick_a_date">یک تاریخ انتخاب کنید</string>
 	<string name="pick_a_time">یک زمان انتخاب کنید</string>
 	<string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
-	<string name="pick_a_location">انتخاب یک موقعیت</string>
 	<string name="when_overdue">پس از موعود</string>
 	<string name="when_due">روز موعود</string>
-	<string name="geofence_radius_title">شعاع (متر)</string>
-	<string name="geofence_responsiveness_title">زمان پاسخگویی (مقدار بالاتر مصرف کمتر باتری)</string>
-	<string name="geolocation_reminders">یادآوری‌های وابسته به مکان</string>
 	<string name="tags">برچسب ها</string>
 	<string name="filters">فیلترها</string>
 	<string name="date_shortcut_hour">برای یک ساعت</string>
@@ -259,6 +251,7 @@
 	<string name="theme_orange">نارنجی</string>
 	<string name="theme_brown">قهوه ای</string>
 	<string name="theme_grey">خاکستری</string>
+	<string name="theme_white">سفید</string>
 	<string name="theme_light">روشن</string>
 	<string name="theme_dark">تیره</string>
 	<string name="settings_general">عمومی</string>

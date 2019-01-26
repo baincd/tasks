@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Återställningssammanfattning</string>
 	<string name="import_summary_message">Filen %1$s innehöll %2$s.\n\n %3$s importerade,\n %4$s existerar redan\n %5$s hade fel\n</string>
 	<string name="import_progress_read">Läser uppgift %d...</string>
-	<string name="DLG_error_sdcard">Mappåtkomst nekad: %s</string>
-	<string name="DLG_error_sdcard_general">SD-kort ej tillgängligt!</string>
 	<string name="read_permission_label">Tasks Tillstånd</string>
 	<string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
 	<string name="keep_editing">Fortsätt redigera</string>
@@ -115,7 +113,6 @@
 	<string name="day_after_tomorrow">I övermorgon</string>
 	<string name="next_week">Nästa vecka</string>
 	<string name="dont_hide">Dölj inte</string>
-	<string name="no_deadline_reminder">Inga varsel om förfall</string>
 	<string name="at_deadline">Vid förfallodagen</string>
 	<string name="at_deadline_or_overdue">Vid eller efter förfallodagen</string>
 	<string name="BFE_Active">Mina Uppgifter</string>
@@ -156,8 +153,6 @@
 	<string name="premium_remove_file_confirm">Är du säker? Detta kan inte ångras</string>
 	<string name="audio_recording_title">Spelar in ljud</string>
 	<string name="audio_stop_recording">Avsluta inspelning</string>
-	<string name="file_type_unhandled">Tyvärr hittades ingen applikation för att hantera den här filtypen</string>
-	<string name="file_err_copy">Ett fel uppstod vid kopiering av filen till bilaga</string>
 	<string name="ring_once">Ring en gång</string>
 	<string name="ring_five_times">Ring fem gånger</string>
 	<string name="ring_nonstop">Ring konstant</string>
@@ -201,7 +196,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>
 	<string name="delete_task">Radera uppgift</string>
 	<string name="voice_command_added_task">Uppgift skapad</string>
-	<string name="external_storage_unavailable">Kan inte komma åt externt lagringsutrymme</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 uppgift</item>
 		<item quantity="other">%d uppgifter</item>
@@ -243,12 +237,8 @@
 	<string name="pick_a_date">Ställ in datum</string>
 	<string name="pick_a_time">Ställ in tid</string>
 	<string name="pick_a_date_and_time">Ställ in datum och tid</string>
-	<string name="pick_a_location">Välj en plats</string>
 	<string name="when_overdue">Efter förfallotid</string>
 	<string name="when_due">Vid förfallotid</string>
-	<string name="geofence_radius_title">Radie (meter)</string>
-	<string name="geofence_responsiveness_title">Svarstid (högre värde sparar batteri)</string>
-	<string name="geolocation_reminders">Platsbaserade påminnelser</string>
 	<string name="tags">Etiketter</string>
 	<string name="filters">Filter</string>
 	<string name="date_shortcut_hour">En timme</string>
@@ -304,6 +294,7 @@
 	<string name="theme_blue_grey">Blågrå</string>
 	<string name="theme_black">Svart</string>
 	<string name="theme_dark_grey">Mörkgrå</string>
+	<string name="theme_white">Vit</string>
 	<string name="theme_light">Ljust</string>
 	<string name="theme_dark">Mörkt</string>
 	<string name="theme_wallpaper">Bakgrundsbild</string>

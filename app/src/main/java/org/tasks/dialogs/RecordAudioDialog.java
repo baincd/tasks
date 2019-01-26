@@ -2,27 +2,26 @@ package org.tasks.dialogs;
 
 import static android.app.Activity.RESULT_OK;
 import static org.tasks.PermissionUtil.verifyPermissions;
-import static org.tasks.dialogs.AddAttachmentDialog.EXTRA_PATH;
-import static org.tasks.dialogs.AddAttachmentDialog.EXTRA_TYPE;
 
 import android.app.Dialog;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Chronometer;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.voice.AACRecorder;
+import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.data.TaskAttachment;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.FragmentPermissionRequestor;
@@ -45,7 +44,7 @@ public class RecordAudioDialog extends InjectingDialogFragment
 
   private AACRecorder recorder;
 
-  public static RecordAudioDialog newRecordAudioDialog(FilesControlSet target, int requestCode) {
+  static RecordAudioDialog newRecordAudioDialog(FilesControlSet target, int requestCode) {
     RecordAudioDialog dialog = new RecordAudioDialog();
     dialog.setTargetFragment(target, requestCode);
     return dialog;
@@ -75,9 +74,13 @@ public class RecordAudioDialog extends InjectingDialogFragment
   }
 
   private void startRecording() {
-    recorder.startRecording();
-    timer.setBase(recorder.getBase());
-    timer.start();
+    try {
+      recorder.startRecording(getContext());
+      timer.setBase(recorder.getBase());
+      timer.start();
+    } catch (IOException e) {
+      stopRecording();
+    }
   }
 
   @Override
@@ -99,11 +102,9 @@ public class RecordAudioDialog extends InjectingDialogFragment
   }
 
   @Override
-  public void encodingFinished(String path) {
-    final String extension = path.substring(path.lastIndexOf('.') + 1);
+  public void encodingFinished(Uri uri) {
     Intent intent = new Intent();
-    intent.putExtra(EXTRA_PATH, path);
-    intent.putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_AUDIO + extension);
+    intent.setData(uri);
     Fragment target = getTargetFragment();
     if (target != null) {
       target.onActivityResult(getTargetRequestCode(), RESULT_OK, intent);

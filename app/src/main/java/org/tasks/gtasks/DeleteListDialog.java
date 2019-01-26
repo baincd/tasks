@@ -24,7 +24,6 @@ public class DeleteListDialog extends InjectingDialogFragment {
   private static final String EXTRA_LIST = "extra_list";
   @Inject @ForApplication Context context;
   @Inject DialogBuilder dialogBuilder;
-  @Inject PlayServices playServices;
   private DeleteListDialogCallback callback;
   private GoogleTaskList googleTaskList;
   private ProgressDialog dialog;
@@ -70,7 +69,7 @@ public class DeleteListDialog extends InjectingDialogFragment {
       @Override
       protected Boolean doInBackground(Void... voids) {
         try {
-          new GtasksInvoker(context, playServices, googleTaskList.getAccount())
+          new GtasksInvoker(context, googleTaskList.getAccount())
               .deleteGtaskList(googleTaskList.getRemoteId());
           return true;
         } catch (IOException e) {

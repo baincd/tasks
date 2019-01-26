@@ -46,12 +46,6 @@ File %1$s contained %2$s.\n\n
   <!-- Progress Dialog text for import reading task (%d -> task number)-->
   <string name="import_progress_read">Reading task %d…</string>
 
-  <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
-  <string name="DLG_error_sdcard">Cannot access folder: %s</string>
-
-  <!-- Backup: Dialog when unable to open SD card in general -->
-  <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
-
   <!-- ================================================== AndroidManifest == -->
 
   <!-- permission title for READ_TASKS -->
@@ -175,6 +169,7 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_control_repeat">Repeat</string>
   <string name="TEA_control_gcal">Calendar</string>
   <string name="TEA_control_importance">Priority</string>
+  <string name="TEA_control_location">Location</string>
   <string name="TEA_control_notes">Description</string>
 
   <string name="TEA_control_files">Files</string>
@@ -284,6 +279,8 @@ File %1$s contained %2$s.\n\n
 
   <!-- slide 43e: Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Default reminders</string>
+  <string name="EPr_default_location_reminder_title">Default location reminders</string>
+  <string name="EPr_default_location_radius">Default radius</string>
 
   <!-- slide 45d: Reminder Mode Preference: Default Reminders Duration -->
   <string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
@@ -298,9 +295,12 @@ File %1$s contained %2$s.\n\n
 
   <string name="dont_hide">Don\'t hide</string>
 
-  <string name="no_deadline_reminder">No deadline reminders</string>
   <string name="at_deadline">At deadline</string>
   <string name="at_deadline_or_overdue">At deadline or overdue</string>
+  <string name="no_reminders">No reminders</string>
+  <string name="default_location_reminder_on_arrival">On arrival</string>
+  <string name="default_location_reminder_on_departure">On departure</string>
+  <string name="default_location_reminder_on_arrival_or_departure">On arrival and departure</string>
 
   <!-- ================================================= Filter Exposer == -->
 
@@ -418,10 +418,6 @@ File %1$s contained %2$s.\n\n
 
   <string name="audio_recording_title">Recording Audio</string>
   <string name="audio_stop_recording">Stop Recording</string>
-
-  <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
-
-  <string name="file_err_copy">Error copying file for attachment</string>
 
   <!--  slide 45a: Task Edit: Reminder mode: ring once -->
   <string name="ring_once">Ring once</string>
@@ -616,7 +612,6 @@ File %1$s contained %2$s.\n\n
 
   <string name="delete_task">Delete task</string>
   <string name="voice_command_added_task">Added task</string>
-  <string name="external_storage_unavailable">Cannot access external storage</string>
 
   <!-- ==================================================== Generic Units == -->
 
@@ -665,6 +660,7 @@ File %1$s contained %2$s.\n\n
   <string name="quiet_hours">Quiet hours</string>
   <string name="attachment_directory">Attachment directory</string>
   <string name="backup_directory">Backup directory</string>
+  <string name="google_drive_backup">Copy to Google Drive</string>
   <string name="miscellaneous">Miscellaneous</string>
   <string name="synchronization">Synchronization</string>
   <string name="enabled">Enabled</string>
@@ -678,18 +674,17 @@ File %1$s contained %2$s.\n\n
   <string name="quiet_hours_summary">No reminders during quiet hours</string>
   <string name="TLA_menu_donate">Donate</string>
   <string name="add_reminder">Add reminder</string>
+  <string name="add_location">Add location</string>
   <string name="remove">Remove</string>
   <string name="randomly_once">Randomly once</string>
   <string name="randomly">Randomly</string>
   <string name="pick_a_date">Pick a date</string>
   <string name="pick_a_time">Pick a time</string>
   <string name="pick_a_date_and_time">Pick a date and time</string>
-  <string name="pick_a_location">Pick a location</string>
   <string name="when_overdue">When overdue</string>
   <string name="when_due">When due</string>
-  <string name="geofence_radius_title">Radius (meters)</string>
-  <string name="geofence_responsiveness_title">Response time (higher value conserves battery)</string>
-  <string name="geolocation_reminders">Geolocation Reminders</string>
+  <string name="geofence_radius">Radius</string>
+  <string name="location_radius_meters">%s m</string>
   <string name="tags">Tags</string>
   <string name="filters">Filters</string>
   <string name="date_shortcut_hour">For an hour</string>
@@ -882,4 +877,11 @@ File %1$s contained %2$s.\n\n
   <string name="linkify">Show links</string>
   <string name="linkify_description">Add links to websites, addresses, and phone numbers</string>
   <string name="show_list_indicators">Show list chips</string>
+  <string name="location_remind_arrival">Remind on arrival</string>
+  <string name="location_remind_departure">Remind on departure</string>
+  <string name="call_number">Call %s</string>
+  <string name="open_url">Open %s</string>
+  <string name="location_arrived">Arrived at %s</string>
+  <string name="location_departed">Departed %s</string>
+  <string name="building_notifications">Generating notifications</string>
 </resources>

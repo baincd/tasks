@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.activity;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
@@ -11,17 +12,18 @@ import static org.tasks.tasklist.ActionUtils.applySupportActionModeColor;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
 import android.annotation.SuppressLint;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.view.ActionMode;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ActionMode;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -112,7 +114,6 @@ public class MainActivity extends InjectingAppCompatActivity
   FrameLayout detail;
 
   private NavigationDrawerFragment navigationDrawer;
-  private TaskListViewModel viewModel;
   private int currentNightMode;
 
   private Filter filter;
@@ -123,7 +124,7 @@ public class MainActivity extends InjectingAppCompatActivity
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
+    TaskListViewModel viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
 
     getComponent().inject(viewModel);
 
@@ -338,7 +339,6 @@ public class MainActivity extends InjectingAppCompatActivity
     }
 
     if (item instanceof Filter) {
-      viewModel.clear();
       startActivity(TaskIntents.getTaskListIntent(this, (Filter) item));
     }
   }
@@ -464,7 +464,7 @@ public class MainActivity extends InjectingAppCompatActivity
   }
 
   @Override
-  public void addComment(String message, String picture) {
+  public void addComment(String message, Uri picture) {
     TaskEditFragment taskEditFragment = getTaskEditFragment();
     if (taskEditFragment != null) {
       taskEditFragment.addComment(message, picture);

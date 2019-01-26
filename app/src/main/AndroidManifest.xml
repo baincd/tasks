@@ -13,6 +13,7 @@
   <!-- notifications -->
   <!-- ************* -->
   <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
   <!-- *************************** -->
   <!-- google calendar integration -->
@@ -154,11 +155,16 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <data android:mimeType="text/plain"/>
       </intent-filter>
-
       <intent-filter>
         <action android:name="android.intent.action.SEND"/>
         <category android:name="android.intent.category.DEFAULT"/>
-        <data android:mimeType="text/plain"/>
+        <data android:mimeType="text/plain" />
+        <data android:mimeType="image/*" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.SEND_MULTIPLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="image/*" />
       </intent-filter>
     </activity>
 
@@ -221,6 +227,16 @@
 
     <provider
       android:authorities="${applicationId}.provider"
+      android:exported="false"
+      android:grantUriPermissions="true"
+      android:name="org.tasks.files.NNFileProvider">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/nnf_provider_paths"/>
+    </provider>
+
+    <provider
+      android:authorities="${applicationId}.file_provider"
       android:exported="false"
       android:grantUriPermissions="true"
       android:name="androidx.core.content.FileProvider">
@@ -357,10 +373,6 @@
 
     <service
       android:exported="false"
-      android:name=".jobs.AfterSaveIntentService"
-      android:permission="android.permission.BIND_JOB_SERVICE"/>
-    <service
-      android:exported="false"
       android:name=".scheduling.GeofenceSchedulingIntentService"
       android:permission="android.permission.BIND_JOB_SERVICE"/>
     <service
@@ -420,6 +432,10 @@
         android:name="settingsActivity"
         android:value=".dashclock.DashClockSettings"/>
     </service>
+
+    <service
+      android:exported="false"
+      android:name=".jobs.NotificationService"/>
 
     <activity
       android:exported="true"
@@ -486,6 +502,11 @@
       </intent-filter>
 
     </activity>
+
+    <activity
+      android:label="@string/debug"
+      android:name=".preferences.DebugPreferences"
+      android:theme="@style/Tasks"/>
 
     <!-- launcher icons -->
 

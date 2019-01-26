@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.alarms;
 
 import java.util.LinkedHashSet;
@@ -61,14 +62,13 @@ public class AlarmService {
     boolean changed = false;
 
     for (Alarm item : alarmDao.getAlarms(taskId)) {
-      if (!timestamps.contains(item.getTime())) {
+      if (!timestamps.remove(item.getTime())) {
         jobs.cancelAlarm(item.getId());
         alarmDao.delete(item);
         changed = true;
       }
     }
 
-    // everything that remains shall be written
     for (Long timestamp : timestamps) {
       alarmDao.insert(new Alarm(taskId, timestamp));
       changed = true;

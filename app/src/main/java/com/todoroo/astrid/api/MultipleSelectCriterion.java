@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.api;
 
 import android.graphics.Bitmap;
@@ -81,6 +82,6 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeStringArray(entryTitles);
     dest.writeStringArray(entryValues);
-    super.writeToParcel(dest);
+    writeToParcel(dest);
   }
 }

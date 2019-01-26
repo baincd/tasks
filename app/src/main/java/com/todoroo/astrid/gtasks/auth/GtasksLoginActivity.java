@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.gtasks.auth;
 
 import android.app.ProgressDialog;
@@ -19,6 +20,7 @@ import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.play.AuthResultHandler;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks through the Android account
@@ -59,7 +61,7 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
   }
 
   private void getAuthToken(String a, final ProgressDialog pd) {
-    playServices.getAuthToken(
+    playServices.getTasksAuthToken(
         this,
         a,
         new AuthResultHandler() {
@@ -102,12 +104,5 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
       // User didn't give permission--cancel
       finish();
     }
-  }
-
-  public interface AuthResultHandler {
-
-    void authenticationSuccessful(String accountName);
-
-    void authenticationFailed(String message);
   }
 }

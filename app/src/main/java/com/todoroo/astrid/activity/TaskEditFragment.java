@@ -1,32 +1,34 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.activity;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.files.FileHelper.copyToUri;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.notes.CommentsController;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -112,7 +114,10 @@ public final class TaskEditFragment extends InjectingFragment
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
-            context, backButtonSavesTask ? R.drawable.ic_outline_clear_24px : R.drawable.ic_outline_save_24px));
+            context,
+            backButtonSavesTask
+                ? R.drawable.ic_outline_clear_24px
+                : R.drawable.ic_outline_save_24px));
     toolbar.setNavigationOnClickListener(
         v -> {
           if (backButtonSavesTask) {
@@ -237,10 +242,6 @@ public final class TaskEditFragment extends InjectingFragment
     return getFragment(RepeatControlSet.TAG);
   }
 
-  private FilesControlSet getFilesControlSet() {
-    return getFragment(FilesControlSet.TAG);
-  }
-
   @SuppressWarnings("unchecked")
   private <T extends TaskEditControlFragment> T getFragment(int tag) {
     return (T) getChildFragmentManager().findFragmentByTag(getString(tag));
@@ -320,14 +321,15 @@ public final class TaskEditFragment extends InjectingFragment
     }
   }
 
-  public void addComment(String message, String picture) {
+  void addComment(String message, Uri picture) {
     UserActivity userActivity = new UserActivity();
+    if (picture != null) {
+      Uri output = copyToUri(context, preferences.getAttachmentsDirectory(), picture);
+      userActivity.setPicture(output);
+    }
     userActivity.setMessage(message);
     userActivity.setTargetId(model.getUuid());
     userActivity.setCreated(DateUtilities.now());
-    if (picture != null) {
-      userActivity.setPicture(picture);
-    }
     userActivityDao.createNew(userActivity);
     commentsController.reloadView();
   }

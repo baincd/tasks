@@ -40,21 +40,15 @@ public class TaskListViewModel extends ViewModel {
   private LiveData<PagedList<Task>> tasks;
   private Filter filter;
 
-  public void clear() {
-    tasks = null;
-    latest = null;
-    filter = null;
-  }
-
   public LiveData<PagedList<Task>> getTasks(Filter filter, Property<?>[] properties) {
     if (tasks == null || !filter.equals(this.filter)) {
       this.filter = filter;
-      tasks = getLiveData(filter, properties);
+      tasks = getLiveData(properties);
     }
     return tasks;
   }
 
-  private LiveData<PagedList<Task>> getLiveData(Filter filter, Property<?>[] properties) {
+  private LiveData<PagedList<Task>> getLiveData(Property<?>[] properties) {
     return new LivePagedListBuilder<>(
             new Factory<Integer, Task>() {
               @Override
@@ -129,6 +123,11 @@ public class TaskListViewModel extends ViewModel {
             .from(Task.TABLE)
             .toString();
     return new LimitOffsetDataSource(database, query);
+  }
+
+  public void searchByFilter(Filter filter) {
+    this.filter = filter;
+    invalidate();
   }
 
   public void invalidate() {

@@ -6,10 +6,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import com.todoroo.astrid.core.SortHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class SortDialog extends InjectingDialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    onCreate(savedInstanceState);
 
     if (savedInstanceState != null) {
       manualEnabled = savedInstanceState.getBoolean(EXTRA_MANUAL_ENABLED);

@@ -1,44 +1,46 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.activity;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getColor;
 
 import android.app.Activity;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.view.MenuItemCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.MenuItemCompat;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.google.android.material.snackbar.Snackbar;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
@@ -46,7 +48,10 @@ import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskMover;
 import com.todoroo.astrid.timers.TimerPlugin;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -88,6 +93,7 @@ public class TaskListFragment extends InjectingFragment
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
   // --- instance variables
   private static final int REQUEST_EDIT_FILTER = 11544;
+  private static final int SEARCH_DEBOUNCE_TIMEOUT = 300;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject protected Tracker tracker;
   protected Filter filter;
@@ -123,6 +129,9 @@ public class TaskListFragment extends InjectingFragment
   private TaskListViewModel taskListViewModel;
   private TaskAdapter taskAdapter = null;
   private TaskListRecyclerAdapter recyclerAdapter;
+
+  private PublishSubject<String> searchSubject = PublishSubject.create();
+  private Disposable searchDisposable;
 
   /*
    * ======================================================================
@@ -239,42 +248,84 @@ public class TaskListFragment extends InjectingFragment
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
       completed.setChecked(true);
     }
-    if (taskAdapter.isManuallySorted()) {
+    if (taskAdapter.isManuallySorted() || filter instanceof SearchFilter) {
       completed.setChecked(true);
       completed.setEnabled(false);
       hidden.setChecked(true);
       hidden.setEnabled(false);
     }
 
-    menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
-    final MenuItem item = menu.findItem(R.id.menu_search);
-    final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
-    actionView.setOnQueryTextListener(
-        new SearchView.OnQueryTextListener() {
-          @Override
-          public boolean onQueryTextSubmit(String query) {
-            query = query.trim();
-            String title = getString(R.string.FLA_search_filter, query);
-            Filter savedFilter =
-                new Filter(
-                    title,
-                    new QueryTemplate()
-                        .where(
-                            Criterion.and(
-                                Task.DELETION_DATE.eq(0),
-                                Criterion.or(
-                                    Task.NOTES.like("%" + query + "%"),
-                                    Task.TITLE.like("%" + query + "%")))));
-            ((MainActivity) getActivity()).onFilterItemClicked(savedFilter);
-            MenuItemCompat.collapseActionView(item);
-            return true;
-          }
+    MenuItem voice = menu.findItem(R.id.menu_voice_add);
+    voice.setVisible(device.voiceInputAvailable());
 
-          @Override
-          public boolean onQueryTextChange(String query) {
-            return false;
-          }
-        });
+    MenuItem search =
+        menu.findItem(R.id.menu_search)
+            .setOnActionExpandListener(
+                new MenuItem.OnActionExpandListener() {
+                  @Override
+                  public boolean onMenuItemActionExpand(MenuItem item) {
+                    searchDisposable =
+                        searchSubject
+                            .debounce(SEARCH_DEBOUNCE_TIMEOUT, TimeUnit.MILLISECONDS)
+                            .subscribe(q -> searchByQuery(q));
+                    searchByQuery("");
+                    for (int i = 0; i < menu.size(); i++) {
+                      menu.getItem(i).setVisible(false);
+                    }
+                    return true;
+                  }
+
+                  @Override
+                  public boolean onMenuItemActionCollapse(MenuItem item) {
+                    taskListViewModel.searchByFilter(filter);
+                    searchDisposable.dispose();
+                    for (int i = 0; i < menu.size(); i++) {
+                      menu.getItem(i).setVisible(true);
+                    }
+                    voice.setVisible(device.voiceInputAvailable());
+                    return true;
+                  }
+                });
+    ((SearchView) search.getActionView())
+        .setOnQueryTextListener(
+            new SearchView.OnQueryTextListener() {
+              @Override
+              public boolean onQueryTextSubmit(String query) {
+                ((MainActivity) getActivity())
+                    .onFilterItemClicked(createSearchFilter(query.trim()));
+                MenuItemCompat.collapseActionView(search);
+                return true;
+              }
+
+              @Override
+              public boolean onQueryTextChange(String query) {
+                searchSubject.onNext(query);
+                return true;
+              }
+            });
+  }
+
+  private void searchByQuery(String query) {
+    query = query.trim();
+    if (!query.isEmpty()) {
+      Filter savedFilter = createSearchFilter(query);
+      taskListViewModel.searchByFilter(savedFilter);
+    } else {
+      taskListViewModel.searchByFilter(
+          BuiltInFilterExposer.getMyTasksFilter(context.getResources()));
+    }
+  }
+
+  private Filter createSearchFilter(String query) {
+    String title = getString(R.string.FLA_search_filter, query);
+    return new SearchFilter(
+        title,
+        new QueryTemplate()
+            .where(
+                Criterion.and(
+                    Task.DELETION_DATE.eq(0),
+                    Criterion.or(
+                        Task.NOTES.like("%" + query + "%"), Task.TITLE.like("%" + query + "%")))));
   }
 
   @Override
@@ -403,6 +454,14 @@ public class TaskListFragment extends InjectingFragment
     super.onPause();
 
     localBroadcastManager.unregisterReceiver(refreshReceiver);
+  }
+
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    if (searchDisposable != null && !searchDisposable.isDisposed()) {
+      searchDisposable.dispose();
+    }
   }
 
   /**

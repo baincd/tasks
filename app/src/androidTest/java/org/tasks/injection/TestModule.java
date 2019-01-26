@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
-import androidx.room.Room;
 import android.content.Context;
+import androidx.room.Room;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import dagger.Module;
@@ -18,6 +18,7 @@ import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.TaskListMetadataDao;
 import org.tasks.data.UserActivityDao;
+import org.tasks.jobs.WorkManager;
 import org.tasks.notifications.NotificationDao;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissivePermissionChecker;
@@ -85,9 +86,9 @@ public class TestModule {
   }
 
   @Provides
-  public TaskDao getTaskDao(Database database) {
+  public TaskDao getTaskDao(WorkManager workManager, Database database) {
     TaskDao taskDao = database.getTaskDao();
-    taskDao.initialize(context);
+    taskDao.initialize(workManager);
     return taskDao;
   }
 

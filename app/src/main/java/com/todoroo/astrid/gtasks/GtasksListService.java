@@ -1,15 +1,15 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.gtasks;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 import com.google.api.services.tasks.model.TaskList;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +17,6 @@ import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.GoogleTaskAccount;
-import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import timber.log.Timber;
@@ -27,21 +26,15 @@ public class GtasksListService {
   private final GoogleTaskListDao googleTaskListDao;
   private final TaskDeleter taskDeleter;
   private final LocalBroadcastManager localBroadcastManager;
-  private final GoogleTaskDao googleTaskDao;
-  private final TaskDao taskDao;
 
   @Inject
   public GtasksListService(
       GoogleTaskListDao googleTaskListDao,
       TaskDeleter taskDeleter,
-      LocalBroadcastManager localBroadcastManager,
-      GoogleTaskDao googleTaskDao,
-      TaskDao taskDao) {
+      LocalBroadcastManager localBroadcastManager) {
     this.googleTaskListDao = googleTaskListDao;
     this.taskDeleter = taskDeleter;
     this.localBroadcastManager = localBroadcastManager;
-    this.googleTaskDao = googleTaskDao;
-    this.taskDao = taskDao;
   }
 
   public GoogleTaskList getList(long id) {

@@ -9,13 +9,14 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.tasks.TasksScopes;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+import org.tasks.play.AuthResultHandler;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -76,27 +77,18 @@ public class PlayServices {
     return preferences.getInt(R.string.play_services_available, -1);
   }
 
-  public boolean clearToken(GoogleAccountCredential credential) {
-    try {
-      String token = credential.getToken();
-      Timber.d("Invalidating %s", token);
-      GoogleAuthUtil.clearToken(context, token);
-      GoogleAuthUtil.getToken(
-          context, credential.getSelectedAccount(), "oauth2:" + TasksScopes.TASKS, null);
-      return true;
-    } catch (GoogleAuthException e) {
-      Timber.e(e);
-      return false;
-    } catch (IOException e) {
-      Timber.e(e);
-      return true;
-    }
+  public void getTasksAuthToken(
+      final Activity activity, final String accountName, final AuthResultHandler handler) {
+    getToken(TasksScopes.TASKS, activity, accountName, handler);
   }
 
-  public void getAuthToken(
-      final Activity activity,
-      final String accountName,
-      final GtasksLoginActivity.AuthResultHandler handler) {
+  public void getDriveAuthToken(
+      final Activity activity, final String accountName, final AuthResultHandler handler) {
+    getToken(DriveScopes.DRIVE_FILE, activity, accountName, handler);
+  }
+
+  private void getToken(
+      String scope, Activity activity, String accountName, AuthResultHandler handler) {
     final Account account = accountManager.getAccount(accountName);
     if (account == null) {
       handler.authenticationFailed(
@@ -105,7 +97,7 @@ public class PlayServices {
       new Thread(
               () -> {
                 try {
-                  GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null);
+                  GoogleAuthUtil.getToken(activity, account, "oauth2:" + scope, null);
                   handler.authenticationSuccessful(accountName);
                 } catch (UserRecoverableAuthException e) {
                   Timber.e(e);

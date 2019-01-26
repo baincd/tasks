@@ -19,8 +19,6 @@
 %4$s že obstaja\n
 %5$s imel napake\n</string>
 	<string name="import_progress_read">Berem opravek %d...</string>
-	<string name="DLG_error_sdcard">Datoteka:%s ni dostopna</string>
-	<string name="DLG_error_sdcard_general">Tvoja SD kartica ni dostopna.</string>
 	<string name="read_permission_label">Dovoljenje Opravkom</string>
 	<string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
 	<string name="DLG_hour_minutes">Čas (ure : minute)</string>
@@ -99,7 +97,6 @@
 	<string name="day_after_tomorrow">Pojutrišnjem</string>
 	<string name="next_week">Naslednji teden</string>
 	<string name="dont_hide">Ne skrij</string>
-	<string name="no_deadline_reminder">Brez opomnikov o dospelosti</string>
 	<string name="at_deadline">Ob dospelosti</string>
 	<string name="at_deadline_or_overdue">Ob dospelosti ali potem</string>
 	<string name="BFE_Active">Moji Opravki</string>
@@ -134,8 +131,6 @@
 	<string name="premium_remove_file_confirm">Ste prepričani? Tega ni mogoče razveljaviti</string>
 	<string name="audio_recording_title">Snemam zvok</string>
 	<string name="audio_stop_recording">Prekini snemanje</string>
-	<string name="file_type_unhandled">Žal nobena aplikacija ne ustreza takim datotekam.</string>
-	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
 	<string name="random_reminder_hour">na uro</string>
 	<string name="random_reminder_day">dan</string>
 	<string name="random_reminder_week">na teden</string>

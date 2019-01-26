@@ -24,6 +24,7 @@ import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.dashclock.DashClockSettings;
+import org.tasks.drive.DriveLoginActivity;
 import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
 import org.tasks.locale.ui.activity.TaskerCreateTaskActivity;
@@ -31,6 +32,7 @@ import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.DateTimePreferences;
+import org.tasks.preferences.DebugPreferences;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
@@ -128,4 +130,8 @@ public interface ActivityComponent {
   void inject(PurchaseActivity purchaseActivity);
 
   void inject(CaldavAccountSettingsActivity caldavAccountSettingsActivity);
+
+  void inject(DriveLoginActivity driveLoginActivity);
+
+  void inject(DebugPreferences debugPreferences);
 }

@@ -1,11 +1,13 @@
 package com.todoroo.astrid.service;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static com.todoroo.astrid.helper.UUIDHelper.newUUID;
 
 import android.content.ContentValues;
 import android.net.Uri;
 import android.text.TextUtils;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
@@ -13,7 +15,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskAttachment;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -98,13 +100,15 @@ public class TaskCreator {
     if (task.hasTransitory(GoogleTask.KEY)) {
       googleTaskDao.insert(new GoogleTask(task.getId(), task.getTransitory(GoogleTask.KEY)));
     } else if (task.hasTransitory(CaldavTask.KEY)) {
-      caldavDao.insert(
-          new CaldavTask(task.getId(), task.getTransitory(CaldavTask.KEY), UUIDHelper.newUUID()));
+      caldavDao.insert(new CaldavTask(task.getId(), task.getTransitory(CaldavTask.KEY), newUUID()));
     } else {
       Filter remoteList = defaultFilterProvider.getDefaultRemoteList();
-      if (remoteList != null && remoteList instanceof GtasksFilter) {
+      if (remoteList instanceof GtasksFilter) {
         googleTaskDao.insert(
             new GoogleTask(task.getId(), ((GtasksFilter) remoteList).getRemoteId()));
+      } else if (remoteList instanceof CaldavFilter) {
+        caldavDao.insert(
+            new CaldavTask(task.getId(), ((CaldavFilter) remoteList).getUuid(), newUUID()));
       }
     }
 
@@ -124,7 +128,7 @@ public class TaskCreator {
       task.setTitle(title.trim());
     }
 
-    task.setUuid(UUIDHelper.newUUID());
+    task.setUuid(newUUID());
 
     task.setPriority(
         preferences.getIntegerFromString(R.string.p_default_importance_key, Priority.LOW));
@@ -148,9 +152,8 @@ public class TaskCreator {
             tags.add((String) value);
             break;
           case GoogleTask.KEY:
-            task.putTransitory(key, value);
-            break;
           case CaldavTask.KEY:
+          case TaskAttachment.KEY:
             task.putTransitory(key, value);
             break;
           default:

@@ -26,7 +26,6 @@ public class RenameListDialog extends InjectingDialogFragment {
   private static final String EXTRA_LIST = "extra_list";
   @Inject @ForApplication Context context;
   @Inject DialogBuilder dialogBuilder;
-  @Inject PlayServices playServices;
   private RenameListDialogCallback callback;
   private ProgressDialog dialog;
   private GoogleTaskList googleTaskList;
@@ -75,7 +74,7 @@ public class RenameListDialog extends InjectingDialogFragment {
       @Override
       protected TaskList doInBackground(Void... voids) {
         try {
-          return new GtasksInvoker(context, playServices, googleTaskList.getAccount())
+          return new GtasksInvoker(context, googleTaskList.getAccount())
               .renameGtaskList(googleTaskList.getRemoteId(), name);
         } catch (IOException e) {
           Timber.e(e);

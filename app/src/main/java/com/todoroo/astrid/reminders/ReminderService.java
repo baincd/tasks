@@ -1,15 +1,19 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.reminders;
+
+import static com.google.common.collect.Lists.transform;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
 import javax.inject.Inject;
+import org.jetbrains.annotations.Nullable;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.NotificationQueue;
 import org.tasks.jobs.ReminderEntry;
@@ -20,16 +24,13 @@ import org.tasks.time.DateTime;
 @ApplicationScope
 public final class ReminderService {
 
-  /** flag for due date reminder */
   public static final int TYPE_DUE = 0;
-  /** flag for overdue reminder */
   public static final int TYPE_OVERDUE = 1;
-  /** flag for random reminder */
   public static final int TYPE_RANDOM = 2;
-  /** flag for a snoozed reminder */
   public static final int TYPE_SNOOZE = 3;
-  /** flag for an alarm reminder */
   public static final int TYPE_ALARM = 4;
+  public static final int TYPE_GEOFENCE_ENTER = 5;
+  public static final int TYPE_GEOFENCE_EXIT = 6;
 
   private static final long NO_ALARM = Long.MAX_VALUE;
 
@@ -51,14 +52,17 @@ public final class ReminderService {
   }
 
   public void scheduleAllAlarms(List<Long> taskIds) {
-    for (Task task : taskDao.fetch(taskIds)) {
-      scheduleAlarm(task);
-    }
+    jobs.add(transform(taskDao.fetch(taskIds), this::getReminderEntry));
   }
 
   public void scheduleAllAlarms() {
-    for (Task task : taskDao.getTasksWithReminders()) {
-      scheduleAlarm(task);
+    jobs.add(transform(taskDao.getTasksWithReminders(), this::getReminderEntry));
+  }
+
+  public void scheduleAlarm(Task task) {
+    ReminderEntry reminder = getReminderEntry(task);
+    if (reminder != null) {
+      jobs.add(reminder);
     }
   }
 
@@ -66,9 +70,9 @@ public final class ReminderService {
     jobs.cancelReminder(taskId);
   }
 
-  public void scheduleAlarm(Task task) {
+  private @Nullable ReminderEntry getReminderEntry(Task task) {
     if (task == null || !task.isSaved()) {
-      return;
+      return null;
     }
 
     long taskId = task.getId();
@@ -78,7 +82,7 @@ public final class ReminderService {
     cancelReminder(taskId);
 
     if (task.isCompleted() || task.isDeleted()) {
-      return;
+      return null;
     }
 
     // snooze reminder
@@ -100,14 +104,16 @@ public final class ReminderService {
 
     // snooze trumps all
     if (whenSnooze != NO_ALARM) {
-      jobs.add(new ReminderEntry(taskId, whenSnooze, TYPE_SNOOZE));
+      return new ReminderEntry(taskId, whenSnooze, TYPE_SNOOZE);
     } else if (whenRandom < whenDueDate && whenRandom < whenOverdue) {
-      jobs.add(new ReminderEntry(taskId, whenRandom, TYPE_RANDOM));
+      return new ReminderEntry(taskId, whenRandom, TYPE_RANDOM);
     } else if (whenDueDate < whenOverdue) {
-      jobs.add(new ReminderEntry(taskId, whenDueDate, TYPE_DUE));
+      return new ReminderEntry(taskId, whenDueDate, TYPE_DUE);
     } else if (whenOverdue != NO_ALARM) {
-      jobs.add(new ReminderEntry(taskId, whenOverdue, TYPE_OVERDUE));
+      return new ReminderEntry(taskId, whenOverdue, TYPE_OVERDUE);
     }
+
+    return null;
   }
 
   private long calculateNextSnoozeReminder(Task task) {

@@ -10,7 +10,6 @@ import org.tasks.preferences.Preferences;
 
 public class GtaskSyncAdapterHelper {
 
-  private final GoogleAccountManager accountManager;
   private final Preferences preferences;
   private final PlayServices playServices;
   private final GoogleTaskListDao googleTaskListDao;
@@ -18,12 +17,10 @@ public class GtaskSyncAdapterHelper {
 
   @Inject
   public GtaskSyncAdapterHelper(
-      GoogleAccountManager accountManager,
       Preferences preferences,
       PlayServices playServices,
       GoogleTaskListDao googleTaskListDao,
       Tracker tracker) {
-    this.accountManager = accountManager;
     this.preferences = preferences;
     this.playServices = playServices;
     this.googleTaskListDao = googleTaskListDao;

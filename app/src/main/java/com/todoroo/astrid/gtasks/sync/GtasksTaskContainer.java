@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.gtasks.sync;
 
 import static org.tasks.gtasks.GoogleTaskSynchronizer.mergeDates;

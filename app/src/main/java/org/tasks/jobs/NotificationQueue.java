@@ -1,5 +1,6 @@
 package org.tasks.jobs;
 
+import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -7,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.TreeMultimap;
 import com.google.common.primitives.Ints;
+import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.injection.ApplicationScope;
@@ -28,9 +30,15 @@ public class NotificationQueue {
   }
 
   public synchronized <T extends NotificationQueueEntry> void add(T entry) {
-    boolean reschedule = jobs.isEmpty() || entry.getTime() < firstTime();
-    jobs.put(entry.getTime(), entry);
-    if (reschedule) {
+    add(Collections.singletonList(entry));
+  }
+
+  public synchronized <T extends NotificationQueueEntry> void add(Iterable<T> entries) {
+    long originalFirstTime = firstTime();
+    for (T entry : filter(entries, notNull())) {
+      jobs.put(entry.getTime(), entry);
+    }
+    if (originalFirstTime != firstTime()) {
       scheduleNext(true);
     }
   }
@@ -48,16 +56,12 @@ public class NotificationQueue {
     cancel(ReminderEntry.class, taskId);
   }
 
-  private synchronized void cancel(Class<? extends NotificationQueueEntry> c, long id) {
-    boolean reschedule = false;
+  private void cancel(Class<? extends NotificationQueueEntry> c, long id) {
     long firstTime = firstTime();
-    List<NotificationQueueEntry> existing =
-        newArrayList(filter(jobs.values(), r -> r.getClass().equals(c) && r.getId() == id));
-    for (NotificationQueueEntry entry : existing) {
-      reschedule |= entry.getTime() == firstTime;
-      jobs.remove(entry.getTime(), entry);
-    }
-    if (reschedule) {
+
+    remove(newArrayList(filter(jobs.values(), r -> r.getClass().equals(c) && r.getId() == id)));
+
+    if (firstTime != firstTime()) {
       scheduleNext(true);
     }
   }

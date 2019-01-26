@@ -18,8 +18,6 @@
 	<string name="import_summary_title">סיכום פעולת השחזור</string>
 	<string name="import_summary_message">\"הקובץ \' %1$s\' הכיל  %2$s משימות: \n\n %3$s יובאו,\n %4$s היו קיימות כבר,\nוב־%5$s היו שגיאות.\n\"</string>
 	<string name="import_progress_read">קוראת משימה %d...</string>
-	<string name="DLG_error_sdcard">לא ניתן לגשת לתיקיה: %s</string>
-	<string name="DLG_error_sdcard_general">לא ניתן לגשת לכרטיס ה־SD שלך!</string>
 	<string name="read_permission_label">הרשאות אסטריד</string>
 	<string name="discard_confirmation">להתעלם מהשינויים ?</string>
 	<string name="keep_editing">המשך לערוך</string>
@@ -66,6 +64,7 @@
 	<string name="TEA_control_repeat">חזרה</string>
 	<string name="TEA_control_gcal">יומן</string>
 	<string name="TEA_control_importance">עדיפות</string>
+	<string name="TEA_control_location">מיקום</string>
 	<string name="TEA_control_notes">תיאור</string>
 	<string name="TEA_control_files">קבצים</string>
 	<string name="TEA_control_reminders">תזכורות</string>
@@ -113,6 +112,8 @@
 	<string name="EPr_default_importance_title">עדיפות מחדל</string>
 	<string name="EPr_default_hideUntil_title">ברירת מחדל לזמן הסתרה</string>
 	<string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
+	<string name="EPr_default_location_reminder_title">תזכורות מיקום ברירת מחדל</string>
+	<string name="EPr_default_location_radius">רדיוס ברירת מחדל</string>
 	<string name="EPr_default_reminders_mode_title">ברירת מחדל לסוג צלצול/רטט</string>
 	<string name="priority_high">גבוה</string>
 	<string name="priority_medium">בינוני</string>
@@ -121,9 +122,12 @@
 	<string name="day_after_tomorrow">מחרתיים</string>
 	<string name="next_week">בשבוע הבא</string>
 	<string name="dont_hide">אל תסתיר</string>
-	<string name="no_deadline_reminder">ללא תזכורות במועד הסף</string>
 	<string name="at_deadline">במועד הסף</string>
 	<string name="at_deadline_or_overdue">במועד היעד או לאחריו</string>
+	<string name="no_reminders">אין תזכורות</string>
+	<string name="default_location_reminder_on_arrival">ברגע ההגעה</string>
+	<string name="default_location_reminder_on_departure">ברגע העזיבה</string>
+	<string name="default_location_reminder_on_arrival_or_departure">ברגע ההגעה והעזיבה</string>
 	<string name="BFE_Active">המשימות שלי</string>
 	<string name="BFE_Recent">עודכנו לאחרונה</string>
 	<string name="CFA_universe_all">משימות פעילות</string>
@@ -134,7 +138,7 @@
 	<string name="CFA_context_delete">מחק שורה</string>
 	<string name="CFA_help">לחיצה ארוכה על פריטים כדי לקבל אפשרויות נוספות</string>
 	<string name="CFA_button_add">הוסף קריטריון</string>
-	<string name="CFC_dueBefore_text">תאריך יעד: ?</string>
+	<string name="CFC_dueBefore_text">תאריך יעד לפי: ?</string>
 	<string name="CFC_dueBefore_name">מועד יעד...</string>
 	<string name="no_due_date">ללא תאריך יעד</string>
 	<string name="next_month">בחודש הבא</string>
@@ -163,8 +167,6 @@
 	<string name="premium_remove_file_confirm">בטוח? לא ניתן לבטל את הפעולה</string>
 	<string name="audio_recording_title">מקליטה שֵׁמַע</string>
 	<string name="audio_stop_recording">הפסק הקלטה</string>
-	<string name="file_type_unhandled">\"מצטערת! לא מצאתי ישום שיכול  לטפל בקבצים מסוג זה\"</string>
-	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
 	<string name="ring_once">צלצל פעם אחת</string>
 	<string name="ring_five_times">צלצל חמש פעמים</string>
 	<string name="ring_nonstop">צלצל ללא הפסקה</string>
@@ -284,7 +286,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>
 	<string name="delete_task">מחק משימה</string>
 	<string name="voice_command_added_task">משימות שנוצרו</string>
-	<string name="external_storage_unavailable">לא ניתן לגשת לאחסון חיצוני</string>
 	<plurals name="Ntasks">
 		<item quantity="one">משימה אחת</item>
 		<item quantity="other">%d משימות</item>
@@ -308,6 +309,7 @@
 	<string name="quiet_hours">שעות שקטות</string>
 	<string name="attachment_directory">ספריית קבצים מצורפים</string>
 	<string name="backup_directory">תקיית גיבוי</string>
+	<string name="google_drive_backup">העתק ל\"גוּגֶל דרָייב\"</string>
 	<string name="miscellaneous">שונות</string>
 	<string name="synchronization">סינכרון</string>
 	<string name="enabled">אפשר</string>
@@ -321,18 +323,17 @@
 	<string name="quiet_hours_summary">ללא התראות בשעות השקטות</string>
 	<string name="TLA_menu_donate">לתרומה</string>
 	<string name="add_reminder">הוסף תזכורת</string>
+	<string name="add_location">הוסף מיקום</string>
 	<string name="remove">הסר</string>
 	<string name="randomly_once">אקראי יחיד</string>
 	<string name="randomly">אקראי</string>
 	<string name="pick_a_date">בחר/י בתאריך</string>
 	<string name="pick_a_time">בחר שעה</string>
 	<string name="pick_a_date_and_time">בחר תאריך ושעה</string>
-	<string name="pick_a_location">בחר מיקום</string>
 	<string name="when_overdue">לאחר מועד היעד</string>
 	<string name="when_due">במועד היעד</string>
-	<string name="geofence_radius_title">רדיוס (במטרים)</string>
-	<string name="geofence_responsiveness_title">זמן תגובה (ערך גבוה חוסך בסוללה)</string>
-	<string name="geolocation_reminders">התראות מיקום</string>
+	<string name="geofence_radius">רדיוס</string>
+	<string name="location_radius_meters">%s מטר</string>
 	<string name="tags">תגיות</string>
 	<string name="filters">פילטרים</string>
 	<string name="date_shortcut_hour">בעוד שעה</string>
@@ -403,17 +404,18 @@
 	<string name="theme_blue_grey">כחול אפור</string>
 	<string name="theme_black">שחור</string>
 	<string name="theme_dark_grey">אפור כהה</string>
+	<string name="theme_white">לבן</string>
 	<string name="theme_light">בהיר</string>
 	<string name="theme_dark">כהה</string>
 	<string name="theme_wallpaper">תמונת רקע</string>
 	<string name="theme_day_night">יום / לילה</string>
 	<string name="settings_general">כללי</string>
 	<string name="language">שפה</string>
-	<string name="restart_required">יש לאתחל את האפליקציה כדי לגרום לשינוי להשפיע</string>
+	<string name="restart_required">יש לאתחל את האפליקציה כדי להחיל את השינוי</string>
 	<string name="restart_now">אתחל כעת</string>
 	<string name="restart_later">מאוחר יותר</string>
 	<string name="settings_localization">לוקאליזציה</string>
-	<string name="layout_direction">כיוון הממשק</string>
+	<string name="layout_direction">כיוון הפריסה</string>
 	<string name="layout_direction_left_to_right">משמאל לימין</string>
 	<string name="layout_direction_right_to_left">מימין לשמאל</string>
 	<string name="led_notification">תאורת התראות</string>
@@ -514,4 +516,10 @@
 	<string name="linkify">הצג קישורים</string>
 	<string name="linkify_description">הוסף קישורים לאתרים, כתובות, ומספרי טלפון</string>
 	<string name="show_list_indicators">הצג שבבי רשימה</string>
+	<string name="location_remind_arrival">הזכר ברגע ההגעה</string>
+	<string name="location_remind_departure">הזכר ברגע העזיבה</string>
+	<string name="call_number">התקשר ל-%s</string>
+	<string name="open_url">פתח %s</string>
+	<string name="location_arrived">הגיע ב-%s</string>
+	<string name="location_departed">עזב ב-%s</string>
 </resources>

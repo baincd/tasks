@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Atstatyti suvestinę</string>
 	<string name="import_summary_message">Failas %1$s turėjo %2$s.\n\n %3$s suimportuota,\n %4$s jau egzistavo\n %5$s turėjo klaidų\n</string>
 	<string name="import_progress_read">Nuskaitoma užduotis %d...</string>
-	<string name="DLG_error_sdcard">Nėra prieigos prie aplanko: %s</string>
-	<string name="DLG_error_sdcard_general">Nėra prieigos prie SD kortelės!</string>
 	<string name="read_permission_label">Tasks leidimas</string>
 	<string name="discard_confirmation">Ar tikrai norite atmesti pakeitimus?</string>
 	<string name="keep_editing">Tęsti redagavimą</string>
@@ -66,6 +64,7 @@
 	<string name="TEA_control_repeat">Kartoti</string>
 	<string name="TEA_control_gcal">Kalendorius</string>
 	<string name="TEA_control_importance">Pirmenybė</string>
+	<string name="TEA_control_location">Vieta</string>
 	<string name="TEA_control_notes">Aprašymas</string>
 	<string name="TEA_control_files">Failai</string>
 	<string name="TEA_control_reminders">Priminimai</string>
@@ -113,6 +112,8 @@
 	<string name="EPr_default_importance_title">Numatytasis prioritetas</string>
 	<string name="EPr_default_hideUntil_title">Įprastai slėpti iki</string>
 	<string name="EPr_default_reminders_title">Numatytieji priminimai</string>
+	<string name="EPr_default_location_reminder_title">Numatytieji vietų priminimai</string>
+	<string name="EPr_default_location_radius">Numatytasis spindulys</string>
 	<string name="EPr_default_reminders_mode_title">Numatytasis skambučio/vibracijos tipas</string>
 	<string name="priority_high">Aukštas</string>
 	<string name="priority_medium">Vidutinis</string>
@@ -121,9 +122,12 @@
 	<string name="day_after_tomorrow">Poryt</string>
 	<string name="next_week">Kitą savaitę</string>
 	<string name="dont_hide">Neslėpti</string>
-	<string name="no_deadline_reminder">Be termino pabaigos priminimų</string>
 	<string name="at_deadline">Atėjus terminui</string>
 	<string name="at_deadline_or_overdue">Atėjus terminui arba po jo</string>
+	<string name="no_reminders">Jokių priminimų</string>
+	<string name="default_location_reminder_on_arrival">Atvykus</string>
+	<string name="default_location_reminder_on_departure">Išvykstant</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Atvykus ir išvykstant</string>
 	<string name="BFE_Active">Mano užduotys</string>
 	<string name="BFE_Recent">Neseniai redaguoti</string>
 	<string name="CFA_universe_all">Aktyvios užduotys</string>
@@ -162,8 +166,6 @@
 	<string name="premium_remove_file_confirm">Ar tikrai? Nebegalės būti atstatyta</string>
 	<string name="audio_recording_title">Įrašyti garsą</string>
 	<string name="audio_stop_recording">Stabdyti įrašą</string>
-	<string name="file_type_unhandled">Atsiprašome! Nerasta programa, galinti atidaryti šio tipo failus.</string>
-	<string name="file_err_copy">Klaida bandant pridėti failą</string>
 	<string name="ring_once">Suskambėti vieną kartą</string>
 	<string name="ring_five_times">Suskambėti penkis kartus</string>
 	<string name="ring_nonstop">Skambėti nepaliaujant</string>
@@ -283,7 +285,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks garsu praneš užduoties pavadinimą per priminimus</string>
 	<string name="delete_task">Ištrinti užduotį</string>
 	<string name="voice_command_added_task">Pridėtos užduotys</string>
-	<string name="external_storage_unavailable">Nėra prieigos prie išorinės laikmenos</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 užduotis</item>
 		<item quantity="other">%d užduotys(-čių)</item>
@@ -320,18 +321,16 @@
 	<string name="quiet_hours_summary">Tylos valandomis - be priminimų</string>
 	<string name="TLA_menu_donate">Paaukoti</string>
 	<string name="add_reminder">Pridėti priminimą</string>
+	<string name="add_location">Pridėti vietą</string>
 	<string name="remove">Išmesti</string>
 	<string name="randomly_once">Atsitiktinai vieną kartą</string>
 	<string name="randomly">Atsitiktinai</string>
 	<string name="pick_a_date">Pasirinkti datą</string>
 	<string name="pick_a_time">Pasirinkti laiką</string>
 	<string name="pick_a_date_and_time">Pasirinkti datą ir laiką</string>
-	<string name="pick_a_location">Parinkti vietą</string>
 	<string name="when_overdue">Terminui pasibaigus</string>
 	<string name="when_due">Atėjus terminui</string>
-	<string name="geofence_radius_title">Spindulys (metrais)</string>
-	<string name="geofence_responsiveness_title">Reakcijos laikas (didesnis taupys bateriją)</string>
-	<string name="geolocation_reminders">Geolokaciniai priminimai</string>
+	<string name="geofence_radius">Spindulys</string>
 	<string name="tags">Etiketė</string>
 	<string name="filters">Filtrai</string>
 	<string name="date_shortcut_hour">Valandai</string>
@@ -401,6 +400,7 @@
 	<string name="theme_blue_grey">Mėlynai pilka</string>
 	<string name="theme_black">Juoda</string>
 	<string name="theme_dark_grey">Tamsiai pilka</string>
+	<string name="theme_white">Balta</string>
 	<string name="theme_light">Šviesi</string>
 	<string name="theme_dark">Tamsi</string>
 	<string name="theme_wallpaper">Fono vaizdas</string>
@@ -511,4 +511,10 @@ sukonfigūruota tinkamai.</string>
 	<string name="linkify">Rodyti nuorodas</string>
 	<string name="linkify_description">Pridėti nuorodas į puslapius, adresus ir telefono numerius</string>
 	<string name="show_list_indicators">Rodyti sąrašą lustų</string>
+	<string name="location_remind_arrival">Priminti atvykus</string>
+	<string name="location_remind_departure">Priminti išvykstant</string>
+	<string name="call_number">Skambinti %s</string>
+	<string name="open_url">Atidaryti %s</string>
+	<string name="location_arrived">Atvykta į %s</string>
+	<string name="location_departed">Išvykta iš %s</string>
 </resources>

@@ -2,6 +2,7 @@ package org.tasks.dialogs;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.dialogs.RecordAudioDialog.newRecordAudioDialog;
+import static org.tasks.files.FileHelper.newFilePickerIntent;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -14,7 +15,6 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
-import org.tasks.files.FileExplore;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
@@ -23,15 +23,11 @@ import org.tasks.preferences.Preferences;
 
 public class AddAttachmentDialog extends InjectingDialogFragment {
 
-  private static final String FRAG_TAG_RECORD_AUDIO = "frag_tag_record_audio";
   public static final int REQUEST_CAMERA = 12120;
   public static final int REQUEST_GALLERY = 12121;
   public static final int REQUEST_STORAGE = 12122;
   public static final int REQUEST_AUDIO = 12123;
-
-  public static final String EXTRA_PATH = "extra_path";
-  public static final String EXTRA_TYPE = "extra_type";
-
+  private static final String FRAG_TAG_RECORD_AUDIO = "frag_tag_record_audio";
   @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Device device;
@@ -72,7 +68,8 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
   }
 
   private void takePicture() {
-    getTargetFragment().startActivityForResult(new Intent(context, CameraActivity.class), REQUEST_CAMERA);
+    getTargetFragment()
+        .startActivityForResult(new Intent(context, CameraActivity.class), REQUEST_CAMERA);
   }
 
   private void recordNote() {
@@ -88,7 +85,8 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
     }
   }
 
-  public void pickFromStorage() {
-    getTargetFragment().startActivityForResult(new Intent(context, FileExplore.class), REQUEST_STORAGE);
+  private void pickFromStorage() {
+    getTargetFragment()
+        .startActivityForResult(newFilePickerIntent(getActivity(), null), REQUEST_STORAGE);
   }
 }

@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.andlib.utility;
 
 import android.app.Activity;
@@ -10,20 +11,16 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.os.Looper;
 import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import org.tasks.BuildConfig;
 import timber.log.Timber;
 
 /**
@@ -134,40 +131,6 @@ public class AndroidUtilities {
     }
   }
 
-  /** Copy a file from one place to another */
-  public static void copyFile(File in, File out) throws Exception {
-    FileInputStream fis = new FileInputStream(in);
-    FileOutputStream fos = new FileOutputStream(out);
-    try {
-      copyStream(fis, fos);
-    } finally {
-      fis.close();
-      fos.close();
-    }
-  }
-
-  /** Copy stream from source to destination */
-  private static void copyStream(InputStream source, OutputStream dest) throws IOException {
-    int bytes;
-    byte[] buffer;
-    int BUFFER_SIZE = 1024;
-    buffer = new byte[BUFFER_SIZE];
-    while ((bytes = source.read(buffer)) != -1) {
-      if (bytes == 0) {
-        bytes = source.read();
-        if (bytes < 0) {
-          break;
-        }
-        dest.write(bytes);
-        dest.flush();
-        continue;
-      }
-
-      dest.write(buffer, 0, bytes);
-      dest.flush();
-    }
-  }
-
   public static int convertDpToPixels(DisplayMetrics displayMetrics, int dp) {
     // developer.android.com/guide/practices/screens_support.html#dips-pels
     return (int) (dp * displayMetrics.density + 0.5f);
@@ -207,6 +170,18 @@ public class AndroidUtilities {
 
   public static boolean atLeastOreo() {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+  }
+
+  public static void assertNotMainThread() {
+    if (BuildConfig.DEBUG && isMainThread()) {
+      throw new IllegalStateException();
+    }
+  }
+
+  private static boolean isMainThread() {
+    return atLeastMarshmallow()
+        ? Looper.getMainLooper().isCurrentThread()
+        : Thread.currentThread() == Looper.getMainLooper().getThread();
   }
 
   /**
@@ -250,19 +225,6 @@ public class AndroidUtilities {
     for (View v : views) {
       imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
-  }
-
-  /** Returns the final word characters after the last '.' */
-  public static String getFileExtension(String file) {
-    int index = file.lastIndexOf('.');
-    String extension = "";
-    if (index > 0) {
-      extension = file.substring(index + 1);
-      if (!extension.matches("\\w+")) {
-        extension = "";
-      }
-    }
-    return extension;
   }
 
   interface SerializedPut<T> {

@@ -4,10 +4,10 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import androidx.appcompat.app.AlertDialog;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ListAdapter;
+import androidx.appcompat.app.AlertDialog;
 import java.util.List;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
@@ -34,11 +34,6 @@ public class AlertDialogBuilder {
 
   public AlertDialogBuilder setMessage(String message) {
     builder.setMessage(message);
-    return this;
-  }
-
-  public AlertDialogBuilder setMessage(CharSequence charSequence) {
-    builder.setMessage(charSequence);
     return this;
   }
 

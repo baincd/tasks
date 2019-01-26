@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Samenvatting herstellen</string>
 	<string name="import_summary_message">Bestand %1$s bevat %2$s.\n\n %3$s geïmporteerd,\n %4$s bestaan al\n %5$s had fouten\n</string>
 	<string name="import_progress_read">Taak %d lezen...</string>
-	<string name="DLG_error_sdcard">Toegang geweigerd tot map: %s</string>
-	<string name="DLG_error_sdcard_general">Toegang tot SD-kaart geweigerd!</string>
 	<string name="read_permission_label">Taak toestemmingen</string>
 	<string name="discard_confirmation">Weet u zeker dat u de wijzigingen niet wilt opslaan?</string>
 	<string name="keep_editing">Blijf editen</string>
@@ -65,6 +63,7 @@
 	<string name="TEA_control_repeat">Herhaal</string>
 	<string name="TEA_control_gcal">Kalender</string>
 	<string name="TEA_control_importance">Prioriteit</string>
+	<string name="TEA_control_location">Locatie</string>
 	<string name="TEA_control_notes">Omschrijving</string>
 	<string name="TEA_control_files">Bestanden</string>
 	<string name="TEA_control_reminders">Herinneringen</string>
@@ -112,6 +111,8 @@
 	<string name="EPr_default_importance_title">Standaard prioriteit</string>
 	<string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
 	<string name="EPr_default_reminders_title">Standaard herinneringen</string>
+	<string name="EPr_default_location_reminder_title">Standaard locatie herinneringen</string>
+	<string name="EPr_default_location_radius">Standaard straal</string>
 	<string name="EPr_default_reminders_mode_title">Standaard toon/tril type</string>
 	<string name="priority_high">Hoog</string>
 	<string name="priority_medium">Middelmatig</string>
@@ -120,9 +121,12 @@
 	<string name="day_after_tomorrow">Overmorgen</string>
 	<string name="next_week">Volgende week</string>
 	<string name="dont_hide">Niet verbergen</string>
-	<string name="no_deadline_reminder">Herinneringen zonder einddatum</string>
 	<string name="at_deadline">Op de einddatum</string>
 	<string name="at_deadline_or_overdue">Op of na de einddatum</string>
+	<string name="no_reminders">Geen herinneringen</string>
+	<string name="default_location_reminder_on_arrival">Bij aankomst</string>
+	<string name="default_location_reminder_on_departure">Bij vertrek</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Bij aankomst en vertrek</string>
 	<string name="BFE_Active">Mijn taken</string>
 	<string name="BFE_Recent">Onlangs aangepast</string>
 	<string name="CFA_universe_all">Actieve taken</string>
@@ -162,8 +166,6 @@
 	<string name="premium_remove_file_confirm">Weet je het zeker? Dit kan niet ongedaan gemaakt worden</string>
 	<string name="audio_recording_title">Bezig met opname</string>
 	<string name="audio_stop_recording">Opname stoppen</string>
-	<string name="file_type_unhandled">Sorry! Er is geen applicatie gevonden die dit bestandtype ondersteunt.</string>
-	<string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
 	<string name="ring_once">Ring eenmalig</string>
 	<string name="ring_five_times">Ring vijf keer</string>
 	<string name="ring_nonstop">Ring continue</string>
@@ -282,7 +284,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
 	<string name="delete_task">Verwijder taak</string>
 	<string name="voice_command_added_task">Toegevoegde taak</string>
-	<string name="external_storage_unavailable">Geen toegang tot externe opslag</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 taak</item>
 		<item quantity="other">%d taken</item>
@@ -305,6 +306,7 @@
 	<string name="vibrations">Trillingen</string>
 	<string name="quiet_hours">Rustperiode</string>
 	<string name="attachment_directory">Bijlage directory</string>
+	<string name="google_drive_backup">Kopieer naar Google Drive</string>
 	<string name="miscellaneous">Diversen</string>
 	<string name="synchronization">Synchronisatie</string>
 	<string name="enabled">Actief</string>
@@ -318,17 +320,16 @@
 	<string name="quiet_hours_summary">Geen herinneringen tijdens stille uren</string>
 	<string name="TLA_menu_donate">Doneer</string>
 	<string name="add_reminder">Voeg herinnering toe</string>
+	<string name="add_location">Voeg locatie toe</string>
 	<string name="remove">Verwijder</string>
 	<string name="randomly_once">Willekeurig eenmalig</string>
 	<string name="randomly">Willekeurig</string>
 	<string name="pick_a_date">Kies een datum</string>
 	<string name="pick_a_time">Kies een tijd</string>
 	<string name="pick_a_date_and_time">Kies een datum en tijd</string>
-	<string name="pick_a_location">Kies een locatie</string>
 	<string name="when_overdue">Na de einddatum</string>
 	<string name="when_due">Op de eindtijd</string>
-	<string name="geofence_responsiveness_title">Antwoord tijd (hogere waarde verbruikt meer batterij)</string>
-	<string name="geolocation_reminders">Geolocatie Herinneringen</string>
+	<string name="geofence_radius">Straal</string>
 	<string name="tags">Labels</string>
 	<string name="date_shortcut_hour">Voor een uur</string>
 	<string name="date_shortcut_morning">Ochtend</string>
@@ -394,6 +395,7 @@
 	<string name="theme_blue_grey">Blauwgrijs</string>
 	<string name="theme_black">Zwart</string>
 	<string name="theme_dark_grey">Donker Groen</string>
+	<string name="theme_white">Wit</string>
 	<string name="theme_light">Licht</string>
 	<string name="theme_dark">Donker</string>
 	<string name="theme_wallpaper">Achtergrond</string>
@@ -497,4 +499,12 @@
 	<string name="action_create_new_task">Nieuwe taak maken</string>
 	<string name="show_description">Toon beschrijving</string>
 	<string name="show_full_description">Toon volledige beschrijving</string>
+	<string name="linkify">Toon links</string>
+	<string name="linkify_description">Voeg links toe nar websites, adressen en telefoonnummers</string>
+	<string name="show_list_indicators">Toon lijst indicatie</string>
+	<string name="location_remind_arrival">Herinner bij aankomst</string>
+	<string name="location_remind_departure">Herinner bij vertrek</string>
+	<string name="call_number">Bel %s</string>
+	<string name="location_arrived">Aangekomen on %s</string>
+	<string name="location_departed">Vetrokken om %s</string>
 </resources>

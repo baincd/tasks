@@ -30,10 +30,6 @@ public class GoogleAccountManager {
     return transform(getAccountList(), account -> account.name);
   }
 
-  public boolean hasAccount(final String name) {
-    return getAccount(name) != null;
-  }
-
   private List<Account> getAccountList() {
     return permissionChecker.canAccessAccounts()
         ? asList(accountManager.getAccountsByType("com.google"))

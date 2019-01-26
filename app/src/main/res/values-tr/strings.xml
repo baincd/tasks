@@ -22,8 +22,6 @@
  %5$s hatalar var
 </string>
 	<string name="import_progress_read">%d görev okunuyor..</string>
-	<string name="DLG_error_sdcard">%s dizinine erişilemedi.</string>
-	<string name="DLG_error_sdcard_general">Bellek kartınıza erişilemiyor!</string>
 	<string name="read_permission_label">Tasks İzni</string>
 	<string name="discard_confirmation">Değişikliklerinizi gözden çıkarmak istediğinize emin misiniz?</string>
 	<string name="keep_editing">Düzenlemeyi sürdür</string>
@@ -70,6 +68,7 @@
 	<string name="TEA_control_repeat">Yinele</string>
 	<string name="TEA_control_gcal">Takvim</string>
 	<string name="TEA_control_importance">Öncelik</string>
+	<string name="TEA_control_location">Konum</string>
 	<string name="TEA_control_notes">Açıklama</string>
 	<string name="TEA_control_files">Dosyalar</string>
 	<string name="TEA_control_reminders">Hatırlatmalar</string>
@@ -117,6 +116,8 @@
 	<string name="EPr_default_importance_title">Öntanımlı öncelik</string>
 	<string name="EPr_default_hideUntil_title">Öntanımlı şuna kadar gizleme</string>
 	<string name="EPr_default_reminders_title">Öntanımlı hatırlatmalar</string>
+	<string name="EPr_default_location_reminder_title">Öntanımlı konum hatırlatmalar</string>
+	<string name="EPr_default_location_radius">Öntanımlı yarıçap</string>
 	<string name="EPr_default_reminders_mode_title">Öntanımlı zil/titreşim türü</string>
 	<string name="priority_high">Yüksek</string>
 	<string name="priority_medium">Orta</string>
@@ -125,9 +126,12 @@
 	<string name="day_after_tomorrow">Yarından Sonra</string>
 	<string name="next_week">Gelecek Hafta</string>
 	<string name="dont_hide">Gizleme</string>
-	<string name="no_deadline_reminder">Son gün hatırlatması yok</string>
 	<string name="at_deadline">Son tarihte</string>
 	<string name="at_deadline_or_overdue">Son tarihte ya da aşıldığında</string>
+	<string name="no_reminders">Hatırlatma yok</string>
+	<string name="default_location_reminder_on_arrival">Varışta</string>
+	<string name="default_location_reminder_on_departure">Kalkışta</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Varışta ve kalkışta</string>
 	<string name="BFE_Active">Görevlerim</string>
 	<string name="BFE_Recent">Yakında değiştirilenler</string>
 	<string name="CFA_universe_all">Etkin Görevler</string>
@@ -167,8 +171,6 @@
 	<string name="premium_remove_file_confirm">Emin misiniz? Geri döndürülemez</string>
 	<string name="audio_recording_title">Ses Kaydediliyor</string>
 	<string name="audio_stop_recording">Kaydı Durdur</string>
-	<string name="file_type_unhandled">Üzgünüm! Bu dosya türünü destekleyen bir uygulama bulunamadı.</string>
-	<string name="file_err_copy">Dosyanın ek olarak kopyalanmasında hata</string>
 	<string name="ring_once">Bir kez çal</string>
 	<string name="ring_five_times">5 kez çal</string>
 	<string name="ring_nonstop">Durmadan çal</string>
@@ -288,7 +290,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks, görev adlarını görev hatırlatmaları sırasında söyleyecek</string>
 	<string name="delete_task">Görevi sil</string>
 	<string name="voice_command_added_task">Görev eklendi</string>
-	<string name="external_storage_unavailable">Dış depolamaya ulaşılamadı.</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 görev</item>
 		<item quantity="other">%d görev</item>
@@ -321,22 +322,20 @@
 	<string name="source_code">Kaynak kodu</string>
 	<string name="translations">Çeviri katkıları</string>
 	<string name="contact_developer">Geliştiriciyle iletişime geç</string>
-	<string name="rate_tasks">Tasks\'i Oyla</string>
+	<string name="rate_tasks">Tasks\'i oyla</string>
 	<string name="quiet_hours_summary">Sessiz saatlerde hatırlatıcı yok</string>
 	<string name="TLA_menu_donate">Bağış yap</string>
 	<string name="add_reminder">Hatırlatıcı ekle</string>
+	<string name="add_location">Konum ekle</string>
 	<string name="remove">Kaldır</string>
 	<string name="randomly_once">Şunda rastgele bir kez</string>
 	<string name="randomly">Gelişigüzel</string>
 	<string name="pick_a_date">Bir tarih seç</string>
 	<string name="pick_a_time">Bir zaman seç</string>
 	<string name="pick_a_date_and_time">Bir tarih ve zaman seç</string>
-	<string name="pick_a_location">Bir konum seç</string>
 	<string name="when_overdue">Geciktiğinde</string>
 	<string name="when_due">Zamanı geldiğinde</string>
-	<string name="geofence_radius_title">Yarıçap (metre)</string>
-	<string name="geofence_responsiveness_title">Yanıt süresi (yüksek değer pili korur)</string>
-	<string name="geolocation_reminders">Coğrafi Konum Hatırlatmaları</string>
+	<string name="geofence_radius">Yarıçap</string>
 	<string name="tags">Etiketler</string>
 	<string name="filters">Süzgeçler</string>
 	<string name="date_shortcut_hour">Bir saatliğine</string>
@@ -407,6 +406,7 @@
 	<string name="theme_blue_grey">Mavi gri</string>
 	<string name="theme_black">Siyah</string>
 	<string name="theme_dark_grey">Koyu gri</string>
+	<string name="theme_white">Beyaz</string>
 	<string name="theme_light">Açık</string>
 	<string name="theme_dark">Koyu</string>
 	<string name="theme_wallpaper">Duvar kağıdı</string>
@@ -514,4 +514,13 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="action_create_new_task">Yeni görev oluştur</string>
 	<string name="show_description">Açıklamayı göster</string>
 	<string name="show_full_description">Tam açıklamayı göster</string>
+	<string name="linkify">Bağlantıları göster</string>
+	<string name="linkify_description">Web sitelerine, adreslere ve telefon numaralarına bağlantı ekle</string>
+	<string name="show_list_indicators">Liste çentiklerini göster</string>
+	<string name="location_remind_arrival">Varışta hatırlat</string>
+	<string name="location_remind_departure">Kalkışta hatırlat</string>
+	<string name="call_number">Ara: %s</string>
+	<string name="open_url">Aç: %s</string>
+	<string name="location_arrived">Varıldı: %s</string>
+	<string name="location_departed">Kalkıldı: %s</string>
 </resources>

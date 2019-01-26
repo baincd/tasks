@@ -3,16 +3,18 @@ package org.tasks.backup;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Handler;
-import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -64,7 +66,7 @@ public class TasksJsonImporter {
   private int importCount = 0;
   private int skipCount = 0;
   private ProgressDialog progressDialog;
-  private String input;
+  private Uri input;
 
   @Inject
   public TasksJsonImporter(
@@ -100,33 +102,30 @@ public class TasksJsonImporter {
     handler.post(() -> progressDialog.setMessage(message));
   }
 
-  public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
+  public void importTasks(Activity activity, Uri input, ProgressDialog progressDialog) {
     this.activity = activity;
     this.input = input;
     this.progressDialog = progressDialog;
 
     handler = new Handler();
 
-    new Thread(
-            () -> {
-              try {
-                performImport();
-              } catch (IOException e) {
-                Timber.e(e);
-              }
-            })
-        .start();
+    new Thread(this::performImport).start();
   }
 
-  private void performImport() throws IOException {
-    FileReader fileReader = new FileReader(input);
-    String string = CharStreams.toString(fileReader);
-    fileReader.close();
+  private void performImport() {
     Gson gson = new Gson();
-    JsonObject input = gson.fromJson(string, JsonObject.class);
+    InputStream is;
+    try {
+      is = activity.getContentResolver().openInputStream(this.input);
+    } catch (FileNotFoundException e) {
+      throw new IllegalStateException(e);
+    }
+    InputStreamReader reader = new InputStreamReader(is);
+    JsonObject input = gson.fromJson(reader, JsonObject.class);
 
     try {
       JsonElement data = input.get("data");
+      int version = input.get("version").getAsInt();
       BackupContainer backupContainer = gson.fromJson(data, BackupContainer.class);
       for (TagData tagData : backupContainer.getTags()) {
         if (tagDataDao.getByUuid(tagData.getRemoteId()) == null) {
@@ -175,6 +174,9 @@ public class TasksJsonImporter {
         }
         for (UserActivity comment : backup.comments) {
           comment.setTargetId(taskUuid);
+          if (version < 546) {
+            comment.convertPictureUri();
+          }
           userActivityDao.createNew(comment);
         }
         for (GoogleTask googleTask : backup.google) {
@@ -192,6 +194,9 @@ public class TasksJsonImporter {
         }
         for (TaskAttachment attachment : backup.getAttachments()) {
           attachment.setTaskId(taskUuid);
+          if (version < 546) {
+            attachment.convertPathUri();
+          }
           taskAttachmentDao.insert(attachment);
         }
         for (CaldavTask caldavTask : backup.getCaldavTasks()) {
@@ -200,6 +205,10 @@ public class TasksJsonImporter {
         }
         importCount++;
       }
+      reader.close();
+      is.close();
+    } catch (IOException e) {
+      Timber.e(e);
     } finally {
       localBroadcastManager.broadcastRefresh();
       handler.post(
@@ -220,7 +229,7 @@ public class TasksJsonImporter {
         .setMessage(
             activity.getString(
                 R.string.import_summary_message,
-                input,
+                "",
                 r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
                 r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
                 r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),

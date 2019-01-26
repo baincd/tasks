@@ -16,8 +16,6 @@
 	<string name="import_summary_title">Zusammenfassung wiederherstellen</string>
 	<string name="import_summary_message">Datei %1$s enthielt %2$s Aufgaben.\n\n %3$s wurden importiert,\n %4$s waren schon vorhanden (übersprungen)\n %5$s waren fehlerhaft\n</string>
 	<string name="import_progress_read">Aufgabe %d wird gelesen …</string>
-	<string name="DLG_error_sdcard">Ordner konnte nicht geöffnet werden: %s</string>
-	<string name="DLG_error_sdcard_general">Auf die SD-Karte konnte nicht zugegriffen werden!</string>
 	<string name="read_permission_label">Tasks Zugriffsrechte</string>
 	<string name="discard_confirmation">Änderungen wirklich verwerfen?</string>
 	<string name="keep_editing">Weiter bearbeiten</string>
@@ -30,6 +28,8 @@
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
 	<string name="TAd_actionEditTask">Bearbeiten</string>
+	<string name="action_call">Anrufen</string>
+	<string name="action_open">Öffnen</string>
 	<string name="SSD_sort_drag">Manuelle Sortierung mit Unteraufgaben</string>
 	<string name="SSD_sort_auto">Smarte Sortierung</string>
 	<string name="SSD_sort_alpha">Nach Titel</string>
@@ -62,6 +62,7 @@
 	<string name="TEA_control_repeat">Wiederholen</string>
 	<string name="TEA_control_gcal">Kalender</string>
 	<string name="TEA_control_importance">Priorität</string>
+	<string name="TEA_control_location">Ort</string>
 	<string name="TEA_control_notes">Beschreibung</string>
 	<string name="TEA_control_files">Dateien</string>
 	<string name="TEA_control_reminders">Erinnerungen</string>
@@ -109,6 +110,8 @@
 	<string name="EPr_default_importance_title">Standard-Priorität</string>
 	<string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
 	<string name="EPr_default_reminders_title">Standarderinnerungen</string>
+	<string name="EPr_default_location_reminder_title">Ortsbasierte Standarderinnerungen</string>
+	<string name="EPr_default_location_radius">Standardradius</string>
 	<string name="EPr_default_reminders_mode_title">Standard-Alarm/Vibrationssignal</string>
 	<string name="priority_high">Hoch</string>
 	<string name="priority_medium">Mittel</string>
@@ -117,9 +120,12 @@
 	<string name="day_after_tomorrow">Übermorgen</string>
 	<string name="next_week">Nächste Woche</string>
 	<string name="dont_hide">Nicht verstecken</string>
-	<string name="no_deadline_reminder">Keine Fälligkeits-Erinnerungen</string>
 	<string name="at_deadline">Am Stichtag</string>
 	<string name="at_deadline_or_overdue">Zur Fälligkeit oder überfällig</string>
+	<string name="no_reminders">Keine Erinnerungen</string>
+	<string name="default_location_reminder_on_arrival">Bei Ankunft</string>
+	<string name="default_location_reminder_on_departure">Bei Abreise</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Bei Ankunft und Abreise</string>
 	<string name="BFE_Active">Meine Aufgaben</string>
 	<string name="BFE_Recent">Kürzlich bearbeitet</string>
 	<string name="CFA_universe_all">Aktuelle Aufgaben</string>
@@ -139,7 +145,7 @@
 	<string name="CFC_tag_text">Schlagwort: ?</string>
 	<string name="CFC_tag_name">Tag...</string>
 	<string name="CFC_tag_contains_name">Tag-Name enthält...</string>
-	<string name="CFC_tag_contains_text">Tag-Name enthält: ?</string>
+	<string name="CFC_tag_contains_text">Schlagwort enthält: ?</string>
 	<string name="CFC_title_contains_name">Titel enthält …</string>
 	<string name="CFC_title_contains_text">Titel enthält: ?</string>
 	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender!</string>
@@ -158,8 +164,6 @@
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
 	<string name="audio_recording_title">Audio aufnehmen</string>
 	<string name="audio_stop_recording">Aufnahme stoppen</string>
-	<string name="file_type_unhandled">Tut mir leid! Dieser Dateityp kann nicht geöffnet werden.</string>
-	<string name="file_err_copy">Fehler beim Kopieren der anzuhängenden Datei</string>
 	<string name="ring_once">Einmal klingeln</string>
 	<string name="ring_five_times">Fünfmal klingeln</string>
 	<string name="ring_nonstop">Ununterbrochen klingeln</string>
@@ -278,7 +282,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
 	<string name="delete_task">Aufgabe löschen</string>
 	<string name="voice_command_added_task">Hinzugefügte Aufgabe</string>
-	<string name="external_storage_unavailable">Kein Zugriff auf externen Speicher</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 Aufgabe</item>
 		<item quantity="other">%d Aufgaben</item>
@@ -302,6 +305,7 @@
 	<string name="quiet_hours">Ruhezeit</string>
 	<string name="attachment_directory">Ordner für Anhänge</string>
 	<string name="backup_directory">Sicherungsordner</string>
+	<string name="google_drive_backup">Zu Googe Drive kopieren</string>
 	<string name="miscellaneous">Verschiedenes</string>
 	<string name="synchronization">Synchronisierung</string>
 	<string name="enabled">Aktiviert</string>
@@ -315,18 +319,15 @@
 	<string name="quiet_hours_summary">Keine Erinnerungen während der Ruhezeit</string>
 	<string name="TLA_menu_donate">Spenden</string>
 	<string name="add_reminder">Erinnerung hinzufügen</string>
+	<string name="add_location">Ort hinzufügen</string>
 	<string name="remove">Entfernen</string>
 	<string name="randomly_once">Einmal zufällig</string>
 	<string name="randomly">Zufällig</string>
 	<string name="pick_a_date">Datum auswählen</string>
 	<string name="pick_a_time">Uhrzeit auswählen</string>
 	<string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
-	<string name="pick_a_location">Ort auswählen</string>
 	<string name="when_overdue">Wenn überfällig</string>
 	<string name="when_due">Wenn fällig</string>
-	<string name="geofence_radius_title">Radius (Meter)</string>
-	<string name="geofence_responsiveness_title">Antwortzeit (Größere Werte sparen Akkuleistung)</string>
-	<string name="geolocation_reminders">Geo-/Ortsbasierte Erinnerungen</string>
 	<string name="tags">Schlagworte</string>
 	<string name="filters">Filter</string>
 	<string name="date_shortcut_hour">Für eine Stunde</string>
@@ -370,7 +371,7 @@
 	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
 	<string name="default_list">Standard-Liste</string>
 	<string name="default_sync">Standardsynchronisation</string>
-	<string name="opacity">Durchsichtigkeit</string>
+	<string name="opacity">Deckkraft</string>
 	<string name="color">Farbe</string>
 	<string name="accent">Akzent</string>
 	<string name="launcher_icon">Startersymbol</string>
@@ -392,6 +393,7 @@
 	<string name="theme_blue_grey">Blaugrau</string>
 	<string name="theme_black">Schwarz</string>
 	<string name="theme_dark_grey">Dunkelgrau</string>
+	<string name="theme_white">Weiß</string>
 	<string name="theme_light">Hell</string>
 	<string name="theme_dark">Dunkel</string>
 	<string name="theme_wallpaper">Hintergrundbild</string>
@@ -430,8 +432,8 @@
 	<string name="password">Passwort</string>
 	<string name="error_adding_account">Fehler beim Hinzufügen des Accounts</string>
 	<string name="calendar_settings">Kalendereinstellungen</string>
-	<string name="notification_channel_settings">Verwalte Benachrichtigungen</string>
-	<string name="battery_optimization_settings">Energiespar-Optionen verwalten</string>
+	<string name="notification_channel_settings">Benachrichtigungen verwalten</string>
+	<string name="battery_optimization_settings">Energiesparmodus verwalten</string>
 	<string name="notification_disable_battery_optimizations_description">Energiesparmodus kann Benachrichtigungen verzögern</string>
 	<string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
 	<string name="badges">Button</string>
@@ -493,9 +495,18 @@
 	<string name="requires_pro_subscription">Pro-Freischaltung benötigt</string>
 	<string name="logout">Abmelden</string>
 	<string name="logout_warning">Von %s abmelden? Das wird alle Daten dieses Kontos von deinem Gerät löschen.</string>
-	<string name="cannot_access_account">Auf das Konto kann nicht zugegriffen werden</string>
+	<string name="cannot_access_account">Zugriff auf Konto fehlgeschlagen</string>
 	<string name="reinitialize_account">Neu initialisieren</string>
 	<string name="action_create_new_task">Neue Aufgabe erstellen</string>
 	<string name="show_description">Beschreibung anzeigen</string>
 	<string name="show_full_description">Gesamte Beschreibung anzeigen</string>
+	<string name="linkify">Links anzeigen</string>
+	<string name="linkify_description">Füge Links zu Websites, Adressen und Telefonnummern hinzu</string>
+	<string name="show_list_indicators">Stichworte und Listen anzeigen</string>
+	<string name="location_remind_arrival">Bei Ankunft erinnern</string>
+	<string name="location_remind_departure">Bei Abreise erinnern</string>
+	<string name="call_number">%s anrufen</string>
+	<string name="open_url">%s öffnen</string>
+	<string name="location_arrived">Angekommen um %s</string>
+	<string name="location_departed">Abgereist um %s</string>
 </resources>

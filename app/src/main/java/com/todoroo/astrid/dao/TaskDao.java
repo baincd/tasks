@@ -1,17 +1,17 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.dao;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
+import android.database.Cursor;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Update;
-import android.content.Context;
-import android.database.Cursor;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -23,7 +23,7 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.ArrayList;
 import java.util.List;
 import org.tasks.BuildConfig;
-import org.tasks.jobs.AfterSaveIntentService;
+import org.tasks.jobs.WorkManager;
 import timber.log.Timber;
 
 @Dao
@@ -33,14 +33,14 @@ public abstract class TaskDao {
 
   private final Database database;
 
-  private Context context;
+  private WorkManager workManager;
 
   public TaskDao(Database database) {
     this.database = database;
   }
 
-  public void initialize(Context context) {
-    this.context = context;
+  public void initialize(WorkManager workManager) {
+    this.workManager = workManager;
   }
 
   public List<Task> needsRefresh() {
@@ -57,8 +57,7 @@ public abstract class TaskDao {
   @androidx.room.Query("SELECT * FROM tasks WHERE _id IN (:taskIds)")
   public abstract List<Task> fetch(List<Long> taskIds);
 
-  @androidx.room.Query(
-      "SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
+  @androidx.room.Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
   public abstract int activeTimers();
 
   @androidx.room.Query(
@@ -71,8 +70,7 @@ public abstract class TaskDao {
   @androidx.room.Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0")
   abstract List<Task> getActiveTasks();
 
-  @androidx.room.Query(
-      "SELECT * FROM tasks WHERE hideUntil < (strftime('%s','now')*1000)")
+  @androidx.room.Query("SELECT * FROM tasks WHERE hideUntil < (strftime('%s','now')*1000)")
   abstract List<Task> getVisibleTasks();
 
   @androidx.room.Query(
@@ -87,8 +85,7 @@ public abstract class TaskDao {
       "UPDATE tasks SET completed = :completionDate " + "WHERE remoteId = :remoteId")
   public abstract void setCompletionDate(String remoteId, long completionDate);
 
-  @androidx.room.Query(
-      "UPDATE tasks SET snoozeTime = :millis WHERE _id in (:taskIds)")
+  @androidx.room.Query("UPDATE tasks SET snoozeTime = :millis WHERE _id in (:taskIds)")
   public abstract void snooze(List<Long> taskIds, long millis);
 
   @androidx.room.Query(
@@ -147,7 +144,7 @@ public abstract class TaskDao {
   // TODO: get rid of this super-hack
   public void save(Task task, Task original) {
     if (saveExisting(task, original)) {
-      AfterSaveIntentService.enqueue(context, task, original);
+      workManager.afterSave(task, original);
     }
   }
 

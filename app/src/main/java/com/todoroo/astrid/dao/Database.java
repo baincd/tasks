@@ -1,13 +1,14 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.dao;
 
-import androidx.sqlite.db.SupportSQLiteDatabase;
-import androidx.room.RoomDatabase;
 import android.database.Cursor;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.todoroo.astrid.data.Task;
 import java.io.IOException;
 import org.tasks.analytics.Tracker;
@@ -60,7 +61,7 @@ import timber.log.Timber;
       CaldavAccount.class,
       GoogleTaskAccount.class
     },
-    version = 59)
+    version = 60)
 public abstract class Database extends RoomDatabase {
 
   public static final String NAME = "database";

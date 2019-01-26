@@ -18,8 +18,6 @@
 	<string name="import_summary_title">Resumen de restauración</string>
 	<string name="import_summary_message">El fichero %1$s contenia %2$s.\n\n %3$s importadas\n %4$s ya existian\n %5$s tenian errores\n</string>
 	<string name="import_progress_read">Leyendo tarea %d...</string>
-	<string name="DLG_error_sdcard">No se puede acceder a la carpeta: %s</string>
-	<string name="DLG_error_sdcard_general">¡No se pudo acceder a su tarjeta de memoria SD!</string>
 	<string name="read_permission_label">Permisos de Tasks</string>
 	<string name="discard_confirmation">¿Quieres descartar los cambios?</string>
 	<string name="keep_editing">Seguir editando</string>
@@ -65,6 +63,7 @@
 	<string name="TEA_control_repeat">Repetir</string>
 	<string name="TEA_control_gcal">Calendario</string>
 	<string name="TEA_control_importance">Prioridad</string>
+	<string name="TEA_control_location">Ubicación</string>
 	<string name="TEA_control_notes">Descripción</string>
 	<string name="TEA_control_files">Archivos</string>
 	<string name="TEA_control_reminders">Recordatorios</string>
@@ -112,6 +111,8 @@
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
 	<string name="EPr_default_hideUntil_title">Ocultar por defecto hasta</string>
 	<string name="EPr_default_reminders_title">Recordatorios por defecto</string>
+	<string name="EPr_default_location_reminder_title">Recordatorios de ubicación predeterminados</string>
+	<string name="EPr_default_location_radius">Radio predeterminado</string>
 	<string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
 	<string name="priority_high">Alta</string>
 	<string name="priority_medium">Media</string>
@@ -120,9 +121,12 @@
 	<string name="day_after_tomorrow">Pasado mañana</string>
 	<string name="next_week">Semana siguiente</string>
 	<string name="dont_hide">No ocultar</string>
-	<string name="no_deadline_reminder">Sin recordatorios del vencimiento</string>
 	<string name="at_deadline">En la fecha de vencimiento</string>
 	<string name="at_deadline_or_overdue">En la fecha de vencimiento o ya vencida</string>
+	<string name="no_reminders">Sin recordatorio</string>
+	<string name="default_location_reminder_on_arrival">A la llegada</string>
+	<string name="default_location_reminder_on_departure">A la salida</string>
+	<string name="default_location_reminder_on_arrival_or_departure">A la salida y llegada</string>
 	<string name="BFE_Active">Mis Tareas</string>
 	<string name="BFE_Recent">Recién modificadas</string>
 	<string name="CFA_universe_all">Tareas activas</string>
@@ -161,8 +165,6 @@
 	<string name="premium_remove_file_confirm">Está seguro? No se puede deshacer</string>
 	<string name="audio_recording_title">Grabando Audio</string>
 	<string name="audio_stop_recording">Detener grabación</string>
-	<string name="file_type_unhandled">Lo sentimos! No se encontró ninguna aplicación para abrir este tipo de archivo.</string>
-	<string name="file_err_copy">Error al copiar el archivo a adjuntar</string>
 	<string name="ring_once">Sonar una vez</string>
 	<string name="ring_five_times">Sonar cinco veces</string>
 	<string name="ring_nonstop">Sonar sin parar</string>
@@ -282,7 +284,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
 	<string name="delete_task">Eliminar tarea</string>
 	<string name="voice_command_added_task">Tarea agregada</string>
-	<string name="external_storage_unavailable">Almacenamiento externo inaccesible</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tarea</item>
 		<item quantity="other">%d tareas</item>
@@ -306,6 +307,7 @@
 	<string name="quiet_hours">Horario silencioso</string>
 	<string name="attachment_directory">Directorio de archivos adjuntos</string>
 	<string name="backup_directory">Directorio de copia de seguridad</string>
+	<string name="google_drive_backup">Copiar a Google Drive</string>
 	<string name="miscellaneous">Miscelánea</string>
 	<string name="synchronization">Sincronización</string>
 	<string name="enabled">Habilitado</string>
@@ -319,18 +321,16 @@
 	<string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
 	<string name="TLA_menu_donate">Haz una donación</string>
 	<string name="add_reminder">Añadir recordatorio</string>
+	<string name="add_location">Añadir ubicación</string>
 	<string name="remove">Eliminar</string>
 	<string name="randomly_once">Aleatorio, una sola vez</string>
 	<string name="randomly">Aleatoriamente</string>
 	<string name="pick_a_date">Elegir fecha</string>
 	<string name="pick_a_time">Elegir hora</string>
 	<string name="pick_a_date_and_time">Elegir fecha y hora</string>
-	<string name="pick_a_location">Elegir ubicación</string>
 	<string name="when_overdue">Si está atrasada</string>
 	<string name="when_due">Al vencimiento</string>
-	<string name="geofence_radius_title">Radio (metros)</string>
-	<string name="geofence_responsiveness_title">Tiempo de respuesta (valores altos mejoran autonomía de batería)</string>
-	<string name="geolocation_reminders">Recordatorios de Geolocalización</string>
+	<string name="geofence_radius">Radio</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
 	<string name="date_shortcut_hour">Por una hora</string>
@@ -400,6 +400,7 @@
 	<string name="theme_blue_grey">Gris azulado</string>
 	<string name="theme_black">Negro</string>
 	<string name="theme_dark_grey">Gris oscuro</string>
+	<string name="theme_white">Blanco</string>
 	<string name="theme_light">Claro</string>
 	<string name="theme_dark">Oscuro</string>
 	<string name="theme_wallpaper">Fondo de pantalla</string>
@@ -507,4 +508,11 @@
 	<string name="show_full_description">Mostrar descripción completa</string>
 	<string name="linkify">Mostrar enlaces</string>
 	<string name="linkify_description">Añade enlaces a sitios web, direcciones y número de teléfono</string>
+	<string name="show_list_indicators">Mostrar fichas de lista</string>
+	<string name="location_remind_arrival">Recordar a la llegada</string>
+	<string name="location_remind_departure">Recordar a la salida</string>
+	<string name="call_number">Llamar a %s</string>
+	<string name="open_url">Abrir %s</string>
+	<string name="location_arrived">Llegada a %s</string>
+	<string name="location_departed">Salida de %s</string>
 </resources>

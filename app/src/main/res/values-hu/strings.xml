@@ -21,8 +21,6 @@
 %4$s már létezett\n
 %5$s hibás\n</string>
 	<string name="import_progress_read">%d feladat olvasása...</string>
-	<string name="DLG_error_sdcard">Könyvtár nem elérhető: %s</string>
-	<string name="DLG_error_sdcard_general">SD kártya nem elérhető</string>
 	<string name="read_permission_label">Tasks Engedélyek</string>
 	<string name="discard_confirmation">Biztosan el akarja vetni a változtatásokat?</string>
 	<string name="keep_editing">Vissza a szerkesztéshez</string>
@@ -69,6 +67,7 @@
 	<string name="TEA_control_repeat">Ismétlés</string>
 	<string name="TEA_control_gcal">Naptár</string>
 	<string name="TEA_control_importance">Prioritás</string>
+	<string name="TEA_control_location">Hely</string>
 	<string name="TEA_control_notes">Leírás</string>
 	<string name="TEA_control_files">Fájlok</string>
 	<string name="TEA_control_reminders">Emlékeztetők</string>
@@ -116,6 +115,8 @@
 	<string name="EPr_default_importance_title">Alapértelmezett prioritás</string>
 	<string name="EPr_default_hideUntil_title">Alapértelmezett elrejtési idő</string>
 	<string name="EPr_default_reminders_title">Alapértelmezett emlékeztetők</string>
+	<string name="EPr_default_location_reminder_title">Alapértelmezett hely emlékeztetők</string>
+	<string name="EPr_default_location_radius">Alapértelmezett távolság</string>
 	<string name="EPr_default_reminders_mode_title">Alapértelmezett csengetés/rezgés típusa</string>
 	<string name="priority_high">Magas</string>
 	<string name="priority_medium">Közepes</string>
@@ -124,9 +125,12 @@
 	<string name="day_after_tomorrow">Holnapután</string>
 	<string name="next_week">Következő hét</string>
 	<string name="dont_hide">Nem rejtett</string>
-	<string name="no_deadline_reminder">Határidő emlékeztetők nélkül</string>
 	<string name="at_deadline">Határidő bekövetkeztekor</string>
 	<string name="at_deadline_or_overdue">Határidő bekövetkeztekor vagy túllépésekor</string>
+	<string name="no_reminders">Nincs emlékeztető</string>
+	<string name="default_location_reminder_on_arrival">Megérkezéskor</string>
+	<string name="default_location_reminder_on_departure">Elinduláskor</string>
+	<string name="default_location_reminder_on_arrival_or_departure">Megérkezéskor és elinduláskor</string>
 	<string name="BFE_Active">Saját Feladatok</string>
 	<string name="BFE_Recent">Nemrég módosítva</string>
 	<string name="CFA_universe_all">Aktív feladatok</string>
@@ -165,8 +169,6 @@
 	<string name="premium_remove_file_confirm">Biztos benne? A művelet nem visszavonható</string>
 	<string name="audio_recording_title">Hang rögzítése</string>
 	<string name="audio_stop_recording">Hangrögzítés leállítása</string>
-	<string name="file_type_unhandled">Sajnáljuk, az adott file megnyitására képes alkalmazás nem található.</string>
-	<string name="file_err_copy">Hiba lépett fel a file csatolásakor</string>
 	<string name="ring_once">Egy csengés</string>
 	<string name="ring_five_times">Öt csengés</string>
 	<string name="ring_nonstop">Folyamatos csengés</string>
@@ -286,7 +288,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">A Tasks kimondja a feladatcímeket emlékeztetőkor</string>
 	<string name="delete_task">Feladat törlése</string>
 	<string name="voice_command_added_task">Hozzáadott feladat</string>
-	<string name="external_storage_unavailable">Külső tárhely nem elérhető</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 feladat</item>
 		<item quantity="other">%d feladat</item>
@@ -310,6 +311,7 @@
 	<string name="quiet_hours">Csendes órák</string>
 	<string name="attachment_directory">Csatolmányok könyvtára</string>
 	<string name="backup_directory">Mentési könyvtár</string>
+	<string name="google_drive_backup">Másolás Google Drive-ba</string>
 	<string name="miscellaneous">Egyéb</string>
 	<string name="synchronization">Szinkronizáció</string>
 	<string name="enabled">Engedélyezve</string>
@@ -323,18 +325,16 @@
 	<string name="quiet_hours_summary">Emlékeztetők mellőzése csendes órák alatt</string>
 	<string name="TLA_menu_donate">Adakozás</string>
 	<string name="add_reminder">Emlékeztető hozzáadása</string>
+	<string name="add_location">Hely hozzáadása</string>
 	<string name="remove">Eltávolítás</string>
 	<string name="randomly_once">Véletlenszerűen egyszer</string>
 	<string name="randomly">Véletlenszerűen</string>
 	<string name="pick_a_date">Dátum kiválasztása</string>
 	<string name="pick_a_time">Időpont kiválasztása</string>
 	<string name="pick_a_date_and_time">Válasszon dátumot és időpontot</string>
-	<string name="pick_a_location">Válassza ki a helyet</string>
 	<string name="when_overdue">Határidő lejárta után</string>
 	<string name="when_due">Határidő elérésekor</string>
-	<string name="geofence_radius_title">Távolság (méterben)</string>
-	<string name="geofence_responsiveness_title">Válaszidő (magasabb érték kíméli az akkumulátort)</string>
-	<string name="geolocation_reminders">Helyhez kötött Emlékeztetők</string>
+	<string name="geofence_radius">Távolság</string>
 	<string name="tags">Címkék</string>
 	<string name="filters">Szűrők</string>
 	<string name="date_shortcut_hour">Egy órára</string>
@@ -405,6 +405,7 @@
 	<string name="theme_blue_grey">Szürkéskék</string>
 	<string name="theme_black">Fekete</string>
 	<string name="theme_dark_grey">Sötétszürke</string>
+	<string name="theme_white">Fehér</string>
 	<string name="theme_light">Világos</string>
 	<string name="theme_dark">Sötét</string>
 	<string name="theme_wallpaper">Háttérkép</string>
@@ -513,4 +514,11 @@
 	<string name="show_full_description">Teljes leírás megjelenítése</string>
 	<string name="linkify">Linkek megjelenítése</string>
 	<string name="linkify_description">Weboldalakra, címekre és telefonszámokra mutató linkek hozzáadása</string>
+	<string name="show_list_indicators">Listajelölők megjelenítése</string>
+	<string name="location_remind_arrival">Induláskor emlékeztet</string>
+	<string name="location_remind_departure">Érkezéskor emlékeztet</string>
+	<string name="call_number">%s hívása</string>
+	<string name="open_url">%s megnyitása</string>
+	<string name="location_arrived">Megérkezett ekkor: %s</string>
+	<string name="location_departed">Elindult ekkor: %s</string>
 </resources>

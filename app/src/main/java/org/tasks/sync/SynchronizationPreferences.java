@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package org.tasks.sync;
 
 import static java.util.Arrays.asList;
@@ -111,8 +112,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   }
 
   private void requestLogin() {
-    startActivityForResult(
-        new Intent(SynchronizationPreferences.this, GtasksLoginActivity.class), REQUEST_LOGIN);
+    startActivityForResult(new Intent(this, GtasksLoginActivity.class), REQUEST_LOGIN);
   }
 
   @Override

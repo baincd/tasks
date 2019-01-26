@@ -25,7 +25,6 @@ public class CreateListDialog extends InjectingDialogFragment {
   private static final String EXTRA_NAME = "extra_name";
   @Inject DialogBuilder dialogBuilder;
   @Inject @ForApplication Context context;
-  @Inject PlayServices playServices;
   private CreateListDialogCallback callback;
   private ProgressDialog dialog;
   private String account;
@@ -74,7 +73,7 @@ public class CreateListDialog extends InjectingDialogFragment {
       @Override
       protected TaskList doInBackground(Void... voids) {
         try {
-          return new GtasksInvoker(context, playServices, account).createGtaskList(name);
+          return new GtasksInvoker(context, account).createGtaskList(name);
         } catch (IOException e) {
           Timber.e(e);
           return null;

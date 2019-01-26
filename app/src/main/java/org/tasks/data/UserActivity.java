@@ -1,12 +1,13 @@
 package org.tasks.data;
 
+import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 import java.io.File;
 import org.json.JSONException;
@@ -55,7 +56,12 @@ public class UserActivity implements Parcelable {
   public UserActivity(XmlReader reader) {
     reader.readString("remoteId", this::setRemoteId);
     reader.readString("message", this::setMessage);
-    reader.readString("picture", this::setPicture);
+    reader.readString(
+        "picture",
+        p -> {
+          setPicture(p);
+          convertPictureUri();
+        });
     reader.readString("target_id", this::setTargetId);
     reader.readLong("created_at", this::setCreated);
   }
@@ -70,9 +76,9 @@ public class UserActivity implements Parcelable {
     created = parcel.readLong();
   }
 
-  private static Uri getPictureUri(String value) {
+  private static Uri getLegacyPictureUri(String value) {
     try {
-      if (value == null) {
+      if (Strings.isNullOrEmpty(value)) {
         return null;
       }
       if (value.contains("uri") || value.contains("path")) {
@@ -124,6 +130,10 @@ public class UserActivity implements Parcelable {
     this.picture = picture;
   }
 
+  public void setPicture(Uri uri) {
+    picture = uri == null ? null : uri.toString();
+  }
+
   public String getTargetId() {
     return targetId;
   }
@@ -141,7 +151,11 @@ public class UserActivity implements Parcelable {
   }
 
   public Uri getPictureUri() {
-    return getPictureUri(picture);
+    return Strings.isNullOrEmpty(picture) ? null : Uri.parse(picture);
+  }
+
+  public void convertPictureUri() {
+    setPicture(getLegacyPictureUri(picture));
   }
 
   @Override

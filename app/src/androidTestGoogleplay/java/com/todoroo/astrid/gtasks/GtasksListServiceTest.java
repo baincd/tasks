@@ -16,14 +16,12 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import androidx.test.runner.AndroidJUnit4;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.TaskList;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.GoogleTaskAccount;
-import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.InjectingTestCase;
@@ -36,8 +34,6 @@ public class GtasksListServiceTest extends InjectingTestCase {
 
   @Inject TaskDeleter taskDeleter;
   @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject GoogleTaskDao googleTaskDao;
-  @Inject TaskDao taskDao;
   @Inject WorkManager workManager;
 
   @Inject GoogleTaskListDao googleTaskListDao;
@@ -48,8 +44,7 @@ public class GtasksListServiceTest extends InjectingTestCase {
     super.setUp();
     workManager.init();
     gtasksListService =
-        new GtasksListService(
-            googleTaskListDao, taskDeleter, localBroadcastManager, googleTaskDao, taskDao);
+        new GtasksListService(googleTaskListDao, taskDeleter, localBroadcastManager);
   }
 
   @Override

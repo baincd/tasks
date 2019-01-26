@@ -2,7 +2,10 @@ package org.tasks;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.google.common.collect.Iterables.skip;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
+import static org.tasks.notifications.NotificationManager.MAX_NOTIFICATIONS;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.app.PendingIntent;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.data.Location;
 import org.tasks.injection.ForApplication;
 import org.tasks.jobs.NotificationQueueEntry;
 import org.tasks.notifications.AudioManager;
@@ -103,11 +107,13 @@ public class Notifier {
     notificationManager.notify(filter.listingTitle.hashCode(), builder, true, false, false);
   }
 
-  public void triggerTaskNotification(long id, int type) {
+  public void triggerTaskNotification(Location location, boolean arrival) {
     org.tasks.notifications.Notification notification = new org.tasks.notifications.Notification();
-    notification.taskId = id;
-    notification.type = type;
+    notification.taskId = location.getTask();
+    notification.type =
+        arrival ? ReminderService.TYPE_GEOFENCE_ENTER : ReminderService.TYPE_GEOFENCE_EXIT;
     notification.timestamp = currentTimeMillis();
+    notification.location = location.getId();
     triggerNotifications(Collections.singletonList(notification), true);
   }
 
@@ -140,6 +146,10 @@ public class Notifier {
       return;
     } else {
       Timber.d("Triggering %s", notifications);
+    }
+
+    if (notifications.size() > MAX_NOTIFICATIONS) {
+      notifications = newArrayList(skip(notifications, notifications.size() - MAX_NOTIFICATIONS));
     }
 
     notificationManager.notifyTasks(notifications, alert, ringNonstop, ringFiveTimes);

@@ -1,6 +1,65 @@
 Change Log
 ---
 
+### 6.4.3 (2019-01-23)
+
+* Use AlarmManager for notifications
+* Fix notification bug
+* Update Bulgarian translations - ddmdima96
+
+### 6.4.1 (2019-01-16)
+
+* Limit number of active notifications
+* Limit rate of notifications
+* Fix Synology Calendar sync issue
+* Fix exception when external storage is unavailable
+
+### 6.4 (2019-01-10)
+
+* Copy backups to Google Drive
+* Improved search
+* Use system file picker (Android 4.4+)
+* Use system directory picker (Android 5.0+)
+* Accept 'send' and 'send_multiple' actions with images
+* File attachment bug fixes
+* Update translations
+  * Brazilian Portuguese - douglaslmr
+  * Bulgarian - ddmdima96
+  * Dutch - revdbrink
+  * French - DragoVaillant, Florian_Dubois
+  * German - marmo, Strubbl
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Italian - dfdario, passero
+  * Japanese - naofumi
+  * Korean - timeforwarp
+  * Lithuanian - gacuxz
+  * Slovak - Cuco
+  * Spanish - i2nm7s, Pum
+  * Turkish - etc
+  * Ukrainian - nathalier
+
+### 6.3.1 (2018-11-07)
+
+* New location row in task edit screen
+* Add location departure notifications
+* Set CalDAV completion percentage and status
+* Bug fixes
+* Update translations
+  * Brazilian Portuguese - douglaslmr
+  * Bulgarian - ddmdima96
+  * Dutch - revdbrink
+  * French - Florian_Dubois
+  * German - marmo, sNiXx, Strubbl
+  * Hebrew - elazar
+  * Hungarian - kaciokos
+  * Italian - dfdario
+  * Japanese - naofumi
+  * Lithuanian - gacuxz
+  * Polish - bilbolodz, hadogenes
+  * Spanish - i2nm7s
+  * Turkish - etc
+
 ### 6.2 (2018-10-29)
 
 * New white theme color

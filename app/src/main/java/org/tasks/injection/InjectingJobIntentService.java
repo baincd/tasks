@@ -11,7 +11,6 @@ public abstract class InjectingJobIntentService extends JobIntentService {
   public static final int JOB_ID_BACKGROUND_SCHEDULER = 1080;
   public static final int JOB_ID_GEOFENCE_TRANSITION = 1081;
   public static final int JOB_ID_GEOFENCE_SCHEDULING = 1082;
-  public static final int JOB_ID_TASK_STATUS_CHANGE = 1083;
   public static final int JOB_ID_NOTIFICATION_SCHEDULER = 1084;
   public static final int JOB_ID_CALENDAR_NOTIFICATION = 1085;
   public static final int JOB_ID_TASKER = 1086;
@@ -19,7 +18,7 @@ public abstract class InjectingJobIntentService extends JobIntentService {
   @Override
   protected final void onHandleWork(@NonNull Intent intent) {
     inject(
-        ((InjectingApplication) getApplication()).getComponent().plus(new IntentServiceModule()));
+        ((InjectingApplication) getApplication()).getComponent().plus(new ServiceModule()));
 
     try {
       doWork(intent);
@@ -30,5 +29,5 @@ public abstract class InjectingJobIntentService extends JobIntentService {
 
   protected abstract void doWork(@Nonnull Intent intent);
 
-  protected abstract void inject(IntentServiceComponent component);
+  protected abstract void inject(ServiceComponent component);
 }

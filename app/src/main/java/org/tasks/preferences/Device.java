@@ -29,6 +29,10 @@ public class Device {
     this.locale = locale;
   }
 
+  public static boolean SupportsLocationServices(Context context) {
+    return context.getResources().getBoolean(R.bool.location_enabled);
+  }
+
   public boolean hasCamera() {
     return context
             .getPackageManager()
@@ -44,7 +48,7 @@ public class Device {
   }
 
   public boolean supportsLocationServices() {
-    return context.getResources().getBoolean(R.bool.location_enabled);
+    return SupportsLocationServices(context);
   }
 
   public boolean voiceInputAvailable() {

@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.andlib.utility;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -196,8 +197,7 @@ public class DateUtilities {
       return context.getString(abbreviated ? R.string.yest : R.string.yesterday);
     }
 
-    if (today + abbreviationLimit >= input
-        && today - abbreviationLimit <= input) {
+    if (today + abbreviationLimit >= input && today - abbreviationLimit <= input) {
       return abbreviated
           ? DateUtilities.getWeekdayShort(newDateTime(date))
           : DateUtilities.getWeekday(newDateTime(date));

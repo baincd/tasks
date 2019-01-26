@@ -20,8 +20,6 @@
 %4$s já existiam\n
 %5$s possuem erros\n</string>
 	<string name="import_progress_read">A ler tarefa %d...</string>
-	<string name="DLG_error_sdcard">Não é possível aceder à pasta: %s</string>
-	<string name="DLG_error_sdcard_general">Não é possível aceder ao seu cartão SD!</string>
 	<string name="read_permission_label">Permissões do Tasks</string>
 	<string name="discard_confirmation">Tem a certeza que deseja descartar as alterações?</string>
 	<string name="keep_editing">Continuar a editar</string>
@@ -116,7 +114,6 @@
 	<string name="day_after_tomorrow">Depois de amanhã</string>
 	<string name="next_week">Próxima semana</string>
 	<string name="dont_hide">Não ocultar</string>
-	<string name="no_deadline_reminder">Sem lembrete de data limite</string>
 	<string name="at_deadline">Na data limite</string>
 	<string name="at_deadline_or_overdue">Na data limite ou ultrapassada</string>
 	<string name="BFE_Active">Minhas tarefas</string>
@@ -157,8 +154,6 @@
 	<string name="premium_remove_file_confirm">Tem a certeza? A ação não pode ser anulada!</string>
 	<string name="audio_recording_title">Gravação áudio</string>
 	<string name="audio_stop_recording">Parar gravação</string>
-	<string name="file_type_unhandled">Não foi encontrada qualquer aplicação para gerir ficheiros deste tipo.</string>
-	<string name="file_err_copy">Erro ao copiar o ficheiro como anexo</string>
 	<string name="ring_once">Tocar uma vez</string>
 	<string name="ring_five_times">Tocar 5 vezes</string>
 	<string name="ring_nonstop">Tocar incessantemente</string>
@@ -276,7 +271,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">O Tasks irá reproduzir o nome da tarefa durante os lembretes</string>
 	<string name="delete_task">Eliminar tarefa</string>
 	<string name="voice_command_added_task">Tarefa adicionada</string>
-	<string name="external_storage_unavailable">Não foi possível aceder ao disco externo</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tarefa</item>
 		<item quantity="other">%d tarefas</item>
@@ -319,12 +313,8 @@
 	<string name="pick_a_date">Escolha a data</string>
 	<string name="pick_a_time">Escolha a hora</string>
 	<string name="pick_a_date_and_time">Escolha a data e a hora</string>
-	<string name="pick_a_location">Escolha o local</string>
 	<string name="when_overdue">Se data limite ultrapassada</string>
 	<string name="when_due">Na data limite</string>
-	<string name="geofence_radius_title">Raio (metros)</string>
-	<string name="geofence_responsiveness_title">Tempo de resposta (valores maiores poupam bateria)</string>
-	<string name="geolocation_reminders">Lembretes de geolocalização</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
 	<string name="date_shortcut_hour">Por uma hora</string>

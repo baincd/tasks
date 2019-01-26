@@ -21,8 +21,6 @@
 %4$s jo olemassa\n
 %5$s virheitä\n</string>
 	<string name="import_progress_read">Luetaan tehtävää %d...</string>
-	<string name="DLG_error_sdcard">Ei pääsyä kansioon: %s</string>
-	<string name="DLG_error_sdcard_general">Ei pääsyä SD kortillesi!</string>
 	<string name="read_permission_label">Tasks käyttöoikeus</string>
 	<string name="discard_confirmation">Oletko varma että haluat hylätä muutokset?</string>
 	<string name="keep_editing">Jatka muokkausta</string>
@@ -118,7 +116,6 @@
 	<string name="day_after_tomorrow">Ylihuomenna</string>
 	<string name="next_week">Ensi viikko</string>
 	<string name="dont_hide">Älä piilota</string>
-	<string name="no_deadline_reminder">Ei määräpäivämuistutusta</string>
 	<string name="at_deadline">Määräaikana</string>
 	<string name="at_deadline_or_overdue">Määräpäivänä tai yliajalla</string>
 	<string name="BFE_Active">Omat tehtävät</string>
@@ -159,8 +156,6 @@
 	<string name="premium_remove_file_confirm">Oletko varma? Ei voi peruuttaa</string>
 	<string name="audio_recording_title">Tallentaa ääntä</string>
 	<string name="audio_stop_recording">Lopeta tallennus</string>
-	<string name="file_type_unhandled">Pahoittelen! Ei sopivaa sovelllusta tämän tiedostotyypin käsittelyyn.</string>
-	<string name="file_err_copy">Virhe tiedoston kopioimisessa liitteeseen</string>
 	<string name="ring_once">Soi kerran</string>
 	<string name="ring_five_times">Soi viisi kertaa</string>
 	<string name="ring_nonstop">Soi jatkuvasti</string>
@@ -279,7 +274,6 @@
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks kertoo tehtävien nimet muistutusten aikana</string>
 	<string name="delete_task">Poista tehtävä</string>
 	<string name="voice_command_added_task">Lisätty tehtävä</string>
-	<string name="external_storage_unavailable">Eii pääsyä ulkoiseen muistiin</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tehtävä</item>
 		<item quantity="other">%d tehtävät</item>
@@ -322,12 +316,8 @@
 	<string name="pick_a_date">Valitse päivä</string>
 	<string name="pick_a_time">Valitse aika</string>
 	<string name="pick_a_date_and_time">Valitse päivä ja aika</string>
-	<string name="pick_a_location">Valitse sijainti</string>
 	<string name="when_overdue">Kunnes yliajalla</string>
 	<string name="when_due">Milloin määräaika</string>
-	<string name="geofence_radius_title">Säde (metriä)</string>
-	<string name="geofence_responsiveness_title">Vasteaika (korkeampi arvo kuluttaa enemmän akkua)</string>
-	<string name="geolocation_reminders">Paikannuksen muistutukset</string>
 	<string name="tags">Tunnisteet</string>
 	<string name="filters">Suodattimet</string>
 	<string name="date_shortcut_hour">Tunnin verran</string>
@@ -390,6 +380,7 @@
 	<string name="theme_blue_grey">Siniharmaa</string>
 	<string name="theme_black">Musta</string>
 	<string name="theme_dark_grey">Tumma harmaa</string>
+	<string name="theme_white">Valkoinen</string>
 	<string name="theme_light">Vaalea</string>
 	<string name="theme_dark">Tumma</string>
 	<string name="theme_wallpaper">Taustakuva</string>

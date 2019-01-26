@@ -1,19 +1,20 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.activity;
 
 import static java.util.Arrays.asList;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MenuItem;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.common.base.Strings;
@@ -31,7 +32,7 @@ import org.tasks.ui.MenuColorizer;
 public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
-  private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v3"; // $NON-NLS-1$
+  private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v5"; // $NON-NLS-1$
   private static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";";
 
   @BindView(R.id.toolbar)
@@ -90,7 +91,8 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
     setContentView(R.layout.beast_mode_pref_activity);
     ButterKnife.bind(this);
 
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px));
+    toolbar.setNavigationIcon(
+        ContextCompat.getDrawable(this, R.drawable.ic_outline_arrow_back_24px));
     toolbar.setNavigationOnClickListener(v -> finish());
     toolbar.inflateMenu(R.menu.beast_mode);
     toolbar.setOnMenuItemClickListener(this);
@@ -115,7 +117,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity
         adapter.setItems(asList(prefsArray));
         return true;
       default:
-        return super.onOptionsItemSelected(item);
+        return onOptionsItemSelected(item);
     }
   }
 

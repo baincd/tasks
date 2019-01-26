@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.gtasks.sync;
 
 import android.content.Context;
@@ -27,7 +28,6 @@ import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
-import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -44,7 +44,6 @@ public class GtasksSyncService {
   private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
   private final Tracker tracker;
   private final GoogleTaskDao googleTaskDao;
-  private final PlayServices playServices;
 
   @Inject
   public GtasksSyncService(
@@ -54,15 +53,13 @@ public class GtasksSyncService {
       GtaskSyncAdapterHelper gtaskSyncAdapterHelper,
       Tracker tracker,
       GoogleTaskDao googleTaskDao,
-      GoogleTaskListDao googleTaskListDao,
-      PlayServices playServices) {
+      GoogleTaskListDao googleTaskListDao) {
     this.context = context;
     this.taskDao = taskDao;
     this.preferences = preferences;
     this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
     this.tracker = tracker;
     this.googleTaskDao = googleTaskDao;
-    this.playServices = playServices;
     new OperationPushThread(operationQueue).start();
   }
 
@@ -176,7 +173,7 @@ public class GtasksSyncService {
 
     @Override
     public void op() throws IOException {
-      GtasksInvoker invoker = new GtasksInvoker(context, playServices, googleTaskList.getAccount());
+      GtasksInvoker invoker = new GtasksInvoker(context, googleTaskList.getAccount());
       pushMetadataOnSave(googleTask, invoker);
     }
   }
@@ -191,7 +188,7 @@ public class GtasksSyncService {
 
     @Override
     public void op() throws IOException {
-      GtasksInvoker invoker = new GtasksInvoker(context, playServices, googleTaskList.getAccount());
+      GtasksInvoker invoker = new GtasksInvoker(context, googleTaskList.getAccount());
       invoker.clearCompleted(googleTaskList.getRemoteId());
     }
   }

@@ -16,6 +16,13 @@ public abstract class TaskAttachmentDao {
   @Query("SELECT * FROM task_attachments WHERE task_id = :taskUuid")
   public abstract List<TaskAttachment> getAttachments(String taskUuid);
 
+  @Query(
+      "SELECT task_attachments.* FROM task_attachments INNER JOIN tasks ON tasks._id = :task WHERE task_id = tasks.remoteId")
+  public abstract List<TaskAttachment> getAttachments(long task);
+
+  @Query("SELECT * FROM task_attachments")
+  public abstract List<TaskAttachment> getAttachments();
+
   @Delete
   public abstract void delete(TaskAttachment taskAttachment);
 

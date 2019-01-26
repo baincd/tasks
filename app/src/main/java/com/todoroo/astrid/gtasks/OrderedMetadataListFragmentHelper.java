@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.gtasks;
 
 import android.text.TextUtils;
@@ -29,7 +30,7 @@ class OrderedMetadataListFragmentHelper {
 
   private final TaskDao taskDao;
   private final Map<Long, ArrayList<Long>> chainedCompletions =
-      Collections.synchronizedMap(new HashMap<Long, ArrayList<Long>>());
+      Collections.synchronizedMap(new HashMap<>());
   private DraggableTaskAdapter taskAdapter;
   private TaskListFragment fragment;
   private GoogleTaskList list;
@@ -119,7 +120,7 @@ class OrderedMetadataListFragmentHelper {
     @Override
     public boolean canIndent(int position, Task task) {
       Task parent = taskAdapter.getTask(position - 1);
-      return parent != null && getIndent(task) <= parent.getIndent();
+      return parent != null && getIndent(task) == 0;
     }
 
     @Override

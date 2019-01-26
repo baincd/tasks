@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.api;
 
 import android.graphics.Bitmap;
@@ -76,6 +77,6 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(prompt);
     dest.writeString(hint);
-    super.writeToParcel(dest);
+    writeToParcel(dest);
   }
 }

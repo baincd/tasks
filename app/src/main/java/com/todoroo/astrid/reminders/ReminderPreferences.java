@@ -1,8 +1,9 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.astrid.reminders;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
@@ -30,12 +31,8 @@ import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
-import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.DefaultFilterProvider;
-import org.tasks.preferences.Device;
-import org.tasks.preferences.PermissionChecker;
 import org.tasks.receivers.Badger;
-import org.tasks.scheduling.GeofenceSchedulingIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
 import org.tasks.time.DateTime;
 import org.tasks.ui.TimePreference;
@@ -47,9 +44,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
   private static final int REQUEST_DEFAULT_REMIND = 10003;
   private static final int REQUEST_BADGE_LIST = 10004;
 
-  @Inject Device device;
-  @Inject ActivityPermissionRequestor permissionRequestor;
-  @Inject PermissionChecker permissionChecker;
   @Inject Badger badger;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject LocalBroadcastManager localBroadcastManager;
@@ -69,7 +63,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         R.string.p_rmd_quietStart,
         R.string.p_rmd_quietEnd,
         R.string.p_rmd_persistent);
-    resetGeofencesOnChange(R.string.p_geofence_radius, R.string.p_geofence_responsiveness);
 
     initializeRingtonePreference();
     initializeTimePreference(getDefaultRemindTimePreference(), REQUEST_DEFAULT_REMIND);
@@ -120,7 +113,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
       return false;
     });
 
-    requires(device.supportsLocationServices(), R.string.geolocation_reminders);
     requires(atLeastOreo(), R.string.notification_channel_settings);
     requires(atLeastMarshmallow(), R.string.battery_optimization_settings);
     requires(
@@ -157,17 +149,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
           .setOnPreferenceChangeListener(
               (preference, newValue) -> {
                 NotificationSchedulerIntentService.enqueueWork(this, false);
-                return true;
-              });
-    }
-  }
-
-  private void resetGeofencesOnChange(int... resIds) {
-    for (int resId : resIds) {
-      findPreference(getString(resId))
-          .setOnPreferenceChangeListener(
-              (preference, newValue) -> {
-                GeofenceSchedulingIntentService.enqueueWork(this);
                 return true;
               });
     }

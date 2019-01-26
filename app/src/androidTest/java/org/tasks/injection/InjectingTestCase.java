@@ -4,16 +4,17 @@ import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static org.tasks.TestUtilities.initializeMockito;
 
 import org.junit.Before;
+import timber.log.Timber;
 
 public abstract class InjectingTestCase {
 
-  private TestComponent component;
-
   @Before
   public void setUp() {
+    Thread.setDefaultUncaughtExceptionHandler((t, e) -> Timber.e(e));
+
     initializeMockito(getTargetContext());
 
-    component =
+    TestComponent component =
         DaggerTestComponent.builder().testModule(new TestModule(getTargetContext())).build();
     inject(component);
   }

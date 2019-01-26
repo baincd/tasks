@@ -5,8 +5,8 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import androidx.core.app.NotificationCompat;
 import android.text.TextUtils;
+import androidx.core.app.NotificationCompat;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
@@ -65,7 +65,6 @@ public class GoogleTaskSynchronizer {
   private final GoogleTaskDao googleTaskDao;
   private final TaskCreator taskCreator;
   private final DefaultFilterProvider defaultFilterProvider;
-  private final PlayServices playServices;
   private final PermissionChecker permissionChecker;
   private final GoogleAccountManager googleAccountManager;
   private final LocalBroadcastManager localBroadcastManager;
@@ -86,7 +85,6 @@ public class GoogleTaskSynchronizer {
       GoogleTaskDao googleTaskDao,
       TaskCreator taskCreator,
       DefaultFilterProvider defaultFilterProvider,
-      PlayServices playServices,
       PermissionChecker permissionChecker,
       GoogleAccountManager googleAccountManager,
       LocalBroadcastManager localBroadcastManager,
@@ -104,7 +102,6 @@ public class GoogleTaskSynchronizer {
     this.googleTaskDao = googleTaskDao;
     this.taskCreator = taskCreator;
     this.defaultFilterProvider = defaultFilterProvider;
-    this.playServices = playServices;
     this.permissionChecker = permissionChecker;
     this.googleAccountManager = googleAccountManager;
     this.localBroadcastManager = localBroadcastManager;
@@ -161,7 +158,7 @@ public class GoogleTaskSynchronizer {
     PendingIntent resolve =
         PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     NotificationCompat.Builder builder =
-        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
+        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_MISCELLANEOUS)
             .setAutoCancel(true)
             .setContentIntent(resolve)
             .setContentTitle(context.getString(R.string.sync_error_permissions))
@@ -182,7 +179,7 @@ public class GoogleTaskSynchronizer {
       return;
     }
 
-    GtasksInvoker gtasksInvoker = new GtasksInvoker(context, playServices, account.getAccount());
+    GtasksInvoker gtasksInvoker = new GtasksInvoker(context, account.getAccount());
     pushLocalChanges(account, gtasksInvoker);
 
     List<TaskList> gtaskLists = new ArrayList<>();

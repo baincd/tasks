@@ -7,18 +7,16 @@ import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
+import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_ENTER;
+import static com.todoroo.astrid.reminders.ReminderService.TYPE_GEOFENCE_EXIT;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.text.TextUtils;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import android.text.TextUtils;
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -35,6 +33,8 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.Location;
+import org.tasks.data.LocationDao;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.intents.TaskIntents;
@@ -54,15 +54,21 @@ public class NotificationManager {
   public static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
+  public static final String NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous";
+  public static final int MAX_NOTIFICATIONS = 40;
   static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
+  static final int SUMMARY_NOTIFICATION_ID = 0;
   private static final String GROUP_KEY = "tasks";
-  private static final int SUMMARY_NOTIFICATION_ID = 0;
+  private static final int NOTIFICATIONS_PER_SECOND = 4;
   private final NotificationManagerCompat notificationManagerCompat;
+  private final LocationDao locationDao;
   private final NotificationDao notificationDao;
   private final TaskDao taskDao;
   private final Context context;
   private final Preferences preferences;
   private final CheckBoxes checkBoxes;
+  private final Throttle throttle = new Throttle(NOTIFICATIONS_PER_SECOND);
+  private final NotificationLimiter queue = new NotificationLimiter(MAX_NOTIFICATIONS);
 
   @Inject
   public NotificationManager(
@@ -70,41 +76,20 @@ public class NotificationManager {
       Preferences preferences,
       NotificationDao notificationDao,
       TaskDao taskDao,
-      CheckBoxes checkBoxes) {
+      CheckBoxes checkBoxes,
+      LocationDao locationDao) {
     this.context = context;
     this.preferences = preferences;
     this.notificationDao = notificationDao;
     this.taskDao = taskDao;
     this.checkBoxes = checkBoxes;
+    this.locationDao = locationDao;
     notificationManagerCompat = NotificationManagerCompat.from(context);
-    if (atLeastOreo()) {
-      android.app.NotificationManager notificationManager =
-          (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications));
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale));
-      notificationManager.createNotificationChannel(
-          createNotificationChannel(NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls));
-    }
-  }
-
-  @TargetApi(Build.VERSION_CODES.O)
-  private NotificationChannel createNotificationChannel(String channelId, int nameResId) {
-    String channelName = context.getString(nameResId);
-    NotificationChannel notificationChannel =
-        new NotificationChannel(
-            channelId, channelName, android.app.NotificationManager.IMPORTANCE_HIGH);
-    notificationChannel.enableLights(true);
-    notificationChannel.enableVibration(true);
-    notificationChannel.setBypassDnd(true);
-    notificationChannel.setShowBadge(true);
-    notificationChannel.setImportance(android.app.NotificationManager.IMPORTANCE_HIGH);
-    return notificationChannel;
   }
 
   public void cancel(long id) {
     notificationManagerCompat.cancel((int) id);
+    queue.remove(id);
     Completable.fromAction(
             () -> {
               if (id == SUMMARY_NOTIFICATION_ID) {
@@ -123,11 +108,12 @@ public class NotificationManager {
   }
 
   public void cancel(List<Long> ids) {
+    for (Long id : ids) {
+      notificationManagerCompat.cancel(id.intValue());
+      queue.remove(id);
+    }
     Completable.fromAction(
             () -> {
-              for (Long id : ids) {
-                notificationManagerCompat.cancel(id.intValue());
-              }
               if (notificationDao.deleteAll(ids) > 0) {
                 notifyTasks(Collections.emptyList(), false, false, false);
               }
@@ -246,8 +232,14 @@ public class NotificationManager {
     notification.deleteIntent =
         PendingIntent.getBroadcast(
             context, (int) notificationId, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+    List<Long> evicted = queue.add(notificationId);
+    if (evicted.size() > 0) {
+      cancel(evicted);
+    }
+
     for (int i = 0; i < ringTimes; i++) {
-      notificationManagerCompat.notify((int) notificationId, notification);
+      throttle.run(() -> notificationManagerCompat.notify((int) notificationId, notification));
     }
   }
 
@@ -349,7 +341,8 @@ public class NotificationManager {
 
     // task due date was changed, but alarm wasn't rescheduled
     boolean dueInFuture =
-        task.hasDueTime() && task.getDueDate() > DateUtilities.now()
+        task.hasDueTime()
+                && new DateTime(task.getDueDate()).startOfMinute().getMillis() > DateUtilities.now()
             || !task.hasDueTime()
                 && task.getDueDate() - DateUtilities.now() > DateUtilities.ONE_DAY;
     if ((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE)
@@ -384,11 +377,22 @@ public class NotificationManager {
     builder.setContentIntent(
         PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
-    if (!Strings.isNullOrEmpty(taskDescription)) {
+    if (type == TYPE_GEOFENCE_ENTER || type == TYPE_GEOFENCE_EXIT) {
+      Location location = locationDao.getGeofence(notification.location);
+      if (location != null) {
+        builder.setContentText(
+            context.getString(
+                type == TYPE_GEOFENCE_ENTER
+                    ? R.string.location_arrived
+                    : R.string.location_departed,
+                location.getDisplayName()));
+      }
+    } else if (!Strings.isNullOrEmpty(taskDescription)) {
       builder
           .setContentText(taskDescription)
           .setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
     }
+
     Intent completeIntent = new Intent(context, CompleteTaskReceiver.class);
     completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id);
     PendingIntent completePendingIntent =

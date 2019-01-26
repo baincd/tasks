@@ -1,14 +1,16 @@
-/**
+/*
  * Copyright (c) 2012 Todoroo Inc
  *
- * <p>See the file "LICENSE" for the full license governing this code.
+ * See the file "LICENSE" for the full license governing this code.
  */
+
 package org.tasks.jobs;
 
 import static androidx.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
+import android.net.Uri;
 import androidx.test.runner.AndroidJUnit4;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -52,7 +54,7 @@ public class BackupServiceTests extends InjectingTestCase {
           "Could not create temp directory: " + temporaryDirectory.getAbsolutePath());
     }
 
-    preferences.setString(R.string.p_backup_dir, temporaryDirectory.getAbsolutePath());
+    preferences.setUri(R.string.p_backup_dir, Uri.fromFile(temporaryDirectory));
 
     // make a temporary task
     Task task = new Task();
