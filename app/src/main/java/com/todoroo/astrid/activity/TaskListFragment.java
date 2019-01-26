@@ -312,7 +312,7 @@ public class TaskListFragment extends InjectingFragment
       taskListViewModel.searchByFilter(savedFilter);
     } else {
       taskListViewModel.searchByFilter(
-          BuiltInFilterExposer.getMyTasksFilter(context.getResources()));
+          BuiltInFilterExposer.getMyTasksFilter(context.getResources(), preferences));
     }
   }
 
